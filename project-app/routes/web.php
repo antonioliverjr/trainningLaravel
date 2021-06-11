@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 });
 */
 
-Route::get('/', 'InicialController@index');
+Route::resource('/Models', 'InicialController');
 
 
 ?>
