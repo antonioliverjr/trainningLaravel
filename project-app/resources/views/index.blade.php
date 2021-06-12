@@ -1,6 +1,6 @@
 @extends('templates.template')
 @section('content')
-    <h1 class="text-center">Crud</h1>
+    <h1 class="text-center">Clientes</h1>
     <hr>
 
     <div class="text-center mt-3 mb-4">

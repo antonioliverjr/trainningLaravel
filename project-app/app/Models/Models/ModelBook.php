@@ -9,4 +9,11 @@ class ModelBook extends Model
 {
     protected $table='book';
     use HasFactory;
+
+    protected $fillable = [
+        'id',
+        'title',
+        'pages',
+        'price',
+    ];
 }
