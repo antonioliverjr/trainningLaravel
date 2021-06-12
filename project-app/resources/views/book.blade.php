@@ -18,25 +18,28 @@
                 <th scope="col">Título</th>
                 <th scope="col">Páginas</th>
                 <th scope="col">Preço</th>
+                <th scope="col">Cliente</th>
             </tr>
             </thead>
             <tbody>
-                @foreach($books as $book)
+                @foreach($book as $books)
                 @php
-                    $user=$book->find($book->id)->relUser;
+                    $cliente=$books->find($books->id)->relCliente;
                 @endphp
                 <tr>
-                    <th scope="row">{{$book->id}}</th>
-                    <td>{{$book->name}}</td>
-                    <td>{{$book->email}}</td>
+                    <th scope="row">{{$books->id}}</th>
+                    <td>{{$books->title}}</td>
+                    <td>{{$books->pages}}</td>
+                    <td>{{$books->price}}</td>
+                    <td>{{$cliente->Cliente}}</td>
                     <td>
-                        <a href="{{url("Models/$book->id")}}">
+                        <a href="{{url("Models/$books->id")}}">
                             <button class="btn btn-dark">Visualizar</button>
                         </a>
-                        <a href="{{url("Models/$book->id/edit")}}">
+                        <a href="{{url("Models/$books->id/edit")}}">
                             <button class="btn btn-primary">Editar</button>
                         </a>
-                        <a href="{{url("Models/$book->id")}}" class="js-del">
+                        <a href="{{url("Models/$books->id")}}" class="js-del">
                             <button class="btn btn-danger">Excluir</button>
                         </a>
                     </td>
