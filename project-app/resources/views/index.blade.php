@@ -22,9 +22,6 @@
             </thead>
             <tbody>
                 @foreach($cliente as $model_clientes)
-                @php
-                    $user=$model_clientes->find($model_clientes->id)->relUser;
-                @endphp
                 <tr>
                     <th scope="row">{{$model_clientes->id}}</th>
                     <td>{{$model_clientes->name}}</td>

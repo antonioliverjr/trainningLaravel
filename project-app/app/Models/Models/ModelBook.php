@@ -15,5 +15,10 @@ class ModelBook extends Model
         'title',
         'pages',
         'price',
+        'id_cliente',
     ];
+
+    public function RelCliente(){
+        return $this->hasOne('App\Models\Models\ModelClientes', 'id', 'id_cliente');
+    }
 }

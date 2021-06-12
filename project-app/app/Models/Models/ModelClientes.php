@@ -15,4 +15,8 @@ class ModelClientes extends Model
         'name',
         'email',
     ];
+
+    public function relBooks(){
+        return $this->hasMany('App\Models\Models\ModelBook', 'id_cliente');
+    }
 }

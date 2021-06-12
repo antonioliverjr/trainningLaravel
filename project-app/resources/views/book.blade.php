@@ -31,7 +31,7 @@
                     <td>{{$books->title}}</td>
                     <td>{{$books->pages}}</td>
                     <td>{{$books->price}}</td>
-                    <td>{{$cliente->Cliente}}</td>
+                    <td>{{$cliente->name}}</td>
                     <td>
                         <a href="{{url("Models/$books->id")}}">
                             <button class="btn btn-dark">Visualizar</button>
