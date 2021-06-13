@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Models;
+namespace App\Models\Clientes;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,12 +11,11 @@ class ModelClientes extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'name',
         'email',
     ];
 
     public function relBooks(){
-        return $this->hasMany('App\Models\Models\ModelBook', 'id_cliente');
+        return $this->hasMany('App\Models\Books\ModelBook', 'id_cliente');
     }
 }

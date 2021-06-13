@@ -4,7 +4,7 @@
     <hr>
 
     <div class="text-center mt-3 mb-4">
-        <a href="{{url("Models/create")}}">
+        <a href="{{url("Books/create")}}">
             <button class="btn btn-success">Cadastrar</button>
         </a>
     </div>
@@ -19,6 +19,7 @@
                 <th scope="col">Páginas</th>
                 <th scope="col">Preço</th>
                 <th scope="col">Cliente</th>
+                <th scope="col">Ações</th>
             </tr>
             </thead>
             <tbody>
@@ -32,14 +33,14 @@
                     <td>{{$books->pages}}</td>
                     <td>{{$books->price}}</td>
                     <td>{{$cliente->name}}</td>
-                    <td>
-                        <a href="{{url("Models/$books->id")}}">
+                    <td class="btn-group">
+                        <a href="{{url("Books/$books->id")}}" class="mr-1">
                             <button class="btn btn-dark">Visualizar</button>
                         </a>
-                        <a href="{{url("Models/$books->id/edit")}}">
+                        <a href="{{url("Books/$books->id/edit")}}" class="mr-1">
                             <button class="btn btn-primary">Editar</button>
                         </a>
-                        <a href="{{url("Models/$books->id")}}" class="js-del">
+                        <a href="{{url("Books/$books->id")}}" class="js-del mr-1">
                             <button class="btn btn-danger">Excluir</button>
                         </a>
                     </td>
@@ -48,5 +49,5 @@
             </tbody>
         </table>
     </div>
-
+    <script src="{{url("assets/js/jsDelBook.js")}}"></script>
 @endsection

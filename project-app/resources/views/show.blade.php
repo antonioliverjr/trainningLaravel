@@ -1,7 +1,7 @@
 @extends('templates.template')
 
 @section('content')
-    <h1 class="text-center">Visualizar</h1>
+    <h1 class="text-center">Visualizar Cliente</h1>
     <hr>
 
     <div class="col-8 m-auto">
@@ -16,7 +16,7 @@
     </div>
     <hr>
     <div class="text-center">
-    <a href="{{url("Models")}}">
+    <a href="{{url("Clientes")}}">
         <button class="btn btn-outline-info">Voltar</button>
     </a>
     </div>

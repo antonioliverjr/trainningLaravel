@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Models;
+namespace App\Models\Books;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +11,6 @@ class ModelBook extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
         'title',
         'pages',
         'price',
@@ -19,6 +18,6 @@ class ModelBook extends Model
     ];
 
     public function RelCliente(){
-        return $this->hasOne('App\Models\Models\ModelClientes', 'id', 'id_cliente');
+        return $this->hasOne('App\Models\Clientes\ModelClientes', 'id', 'id_cliente');
     }
 }

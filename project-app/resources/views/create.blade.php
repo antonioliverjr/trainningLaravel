@@ -13,10 +13,10 @@
             </div>
         @endif
         @if(isset($Model_Clientes))
-            <form name="formEdit" id="formEdit" method="post" action="{{url("Models/$Model_Clientes->id")}}">
+            <form name="formEdit" id="formEdit" method="post" action="{{url("Clientes/$Model_Clientes->id")}}">
                 @method('PUT')
         @else
-            <form name="formCad" id="formCad" method="post" action="{{url('Models')}}">
+            <form name="formCad" id="formCad" method="post" action="{{url('Clientes')}}">
         @endif
                 @csrf
                 <input class="form-Control" type="text" name="name" id="name" placeholder="Nome Cliente:" value="{{$Model_Clientes->name ?? ''}}" required><br>
@@ -26,7 +26,7 @@
                 </div>
             </form>
             <div class="text-center">
-            <a href="{{url("Models")}}">
+            <a href="{{url("Clientes")}}">
                 <button class="btn btn-outline-info">Voltar</button>
             </a>
             </div>

@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Models\ModelBook;
-use App\Models\Models\ModelClientes;
+use App\Http\Requests\BookRequest;
+use App\Models\Books\ModelBook;
+use App\Models\Clientes\ModelClientes;
 
 
 class BookController extends Controller
 {
     private $objBook;
+    private $objModelCliente;
 
     public function __construct()
     {
         $this->objBook=new ModelBook();
+        $this->objModelCliente=new ModelClientes();
     }
     /**
      * Display a listing of the resource.
@@ -22,7 +25,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $book=$this->objBook->all();
+        $book=$this->objBook->all()->sortBy('title');
         return view('book', compact('book'));
     }
 
@@ -33,7 +36,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $model_clientes=$this->objModelCliente->all();
+        return view('createbook', compact('model_clientes'));
     }
 
     /**
@@ -42,9 +46,17 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
-        //
+        $cadBook=$this->objBook->create([
+            'title'=>$request->title,
+            'pages'=>$request->pages,
+            'price'=>$request->price,
+            'id_cliente'=>$request->id_cliente
+        ]);
+        if($cadBook){
+            return redirect('Books');
+        }
     }
 
     /**
@@ -55,7 +67,8 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        //
+        $book=$this->objBook->find($id);
+        return view('showbook', compact('book'));
     }
 
     /**
@@ -66,7 +79,9 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        $book=$this->objBook->find($id);
+        $model_clientes=$this->objModelCliente->all();
+        return view('createbook')->with('book',$book)->with('model_clientes',$model_clientes);
     }
 
     /**
@@ -76,9 +91,15 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookRequest $request, $id)
     {
-        //
+        $this->objBook->where(['id'=>$id])->update([
+            'title'=>$request->title,
+            'pages'=>$request->pages,
+            'price'=>$request->price,
+            'id_cliente'=>$request->id_cliente
+        ]);
+            return redirect('Books');
     }
 
     /**
@@ -89,6 +110,7 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $del=$this->objBook->destroy($id);
+        return($del)?"Sim":"Não";
     }
 }

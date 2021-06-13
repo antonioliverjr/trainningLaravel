@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 });
 */
 
-Route::resource('/Models', 'InicialController');
+Route::resource('/Clientes', 'InicialController');
 Route::resource('/Books', 'BookController');
 
 

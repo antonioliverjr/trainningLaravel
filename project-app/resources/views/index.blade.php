@@ -4,7 +4,7 @@
     <hr>
 
     <div class="text-center mt-3 mb-4">
-        <a href="{{url("Models/create")}}">
+        <a href="{{url("Clientes/create")}}">
             <button class="btn btn-success">Cadastrar</button>
         </a>
     </div>
@@ -27,13 +27,13 @@
                     <td>{{$model_clientes->name}}</td>
                     <td>{{$model_clientes->email}}</td>
                     <td>
-                        <a href="{{url("Models/$model_clientes->id")}}">
+                        <a href="{{url("Clientes/$model_clientes->id")}}">
                             <button class="btn btn-dark">Visualizar</button>
                         </a>
-                        <a href="{{url("Models/$model_clientes->id/edit")}}">
+                        <a href="{{url("Clientes/$model_clientes->id/edit")}}">
                             <button class="btn btn-primary">Editar</button>
                         </a>
-                        <a href="{{url("Models/$model_clientes->id")}}" class="js-del">
+                        <a href="{{url("Clientes/$model_clientes->id")}}" class="js-del">
                             <button class="btn btn-danger">Excluir</button>
                         </a>
                     </td>
@@ -42,5 +42,5 @@
             </tbody>
         </table>
     </div>
-
+    <script src="{{url("assets/js/jsDelCliente.js")}}"></script>
 @endsection

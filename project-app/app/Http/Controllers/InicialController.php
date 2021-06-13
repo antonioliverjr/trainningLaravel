@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ClienteRequest;
-use App\Models\Models\ModelClientes;
+use App\Models\Clientes\ModelClientes;
 use App\Models\User;
 
 class InicialController extends Controller
@@ -26,9 +26,8 @@ class InicialController extends Controller
      */
     public function index()
     {
-        $cliente=$this->objModelCliente->all();
-        return view('index', compact('cliente'));
         $cliente=$this->objModelCliente->all()->sortBy('name');
+        return view('index', compact('cliente'));
     }
 
     /**
@@ -38,8 +37,8 @@ class InicialController extends Controller
      */
     public function create()
     {
-        $user=$this->objUser->all();
-        return view('create', compact('user'));
+        /**$user=$this->objUser->all();*/
+        return view('create');
     }
 
     /**
@@ -55,7 +54,7 @@ class InicialController extends Controller
             'email'=>$request->email
         ]);
         if($cadcliente){
-            return redirect('Models');
+            return redirect('Clientes');
         }
     }
 
@@ -96,7 +95,7 @@ class InicialController extends Controller
             'name'=>$request->name,
             'email'=>$request->email
         ]);
-        return redirect('Models');
+        return redirect('Clientes');
     }
 
     /**
