@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
     return view('index');
 });
 */
-
+Route::resource('/', 'UserController');
+Route::post('/Auth','UserController');
 Route::resource('/Clientes', 'InicialController');
 Route::resource('/Books', 'BookController');
 
