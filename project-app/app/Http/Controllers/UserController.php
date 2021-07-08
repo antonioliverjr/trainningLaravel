@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -16,6 +18,22 @@ class UserController extends Controller
         return view('auth.welcome');
     }
 
+    public function auth(Request $request)
+    {
+        
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+        
+        if(Auth::attempt($credentials))
+        {
+            dd('Logou');
+        } else{
+            dd('Não Logou');
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -23,7 +41,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('auth.createUser');
     }
 
     /**

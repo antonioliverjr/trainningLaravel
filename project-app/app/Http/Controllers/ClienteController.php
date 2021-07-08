@@ -7,7 +7,7 @@ use App\Http\Requests\ClienteRequest;
 use App\Models\Clientes\ModelClientes;
 use App\Models\User;
 
-class InicialController extends Controller
+class ClienteController extends Controller
 {
 
     private $objUser;
@@ -38,7 +38,7 @@ class InicialController extends Controller
     public function create()
     {
         /**$user=$this->objUser->all();*/
-        return view('create');
+        return view('createcliente');
     }
 
     /**
@@ -79,7 +79,7 @@ class InicialController extends Controller
     public function edit($id)
     {
         $Model_Clientes=$this->objModelCliente->find($id);
-        return view('create', compact('Model_Clientes'));
+        return view('createcliente', compact('Model_Clientes'));
     }
 
     /**

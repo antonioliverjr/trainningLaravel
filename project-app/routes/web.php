@@ -19,8 +19,9 @@ use Illuminate\Support\Facades\Route;
 });
 */
 Route::resource('/', 'UserController');
-Route::post('/Auth','UserController');
-Route::resource('/Clientes', 'InicialController');
+Route::post('/Auth','UserController@auth');
+Route::get('/Cadastrar', 'UserController@create');
+Route::resource('/Clientes', 'ClienteController');
 Route::resource('/Books', 'BookController');
 
 
