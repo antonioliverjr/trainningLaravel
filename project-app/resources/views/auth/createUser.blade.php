@@ -11,13 +11,13 @@
 </head>
 <body>
     <section>
-    <div id="login">
+    <div id="cadastro">
         <h3 class="text-center text-blue pt-5">Acesso ao Sistema</h3>
         <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="{{url("Auth/")}}" method="post">
+            <div id="cadastro-row" class="row justify-content-center align-items-center">
+                <div id="cadastro-column" class="col-md-6">
+                    <div id="cadastro-box" class="col-md-12">
+                        <form id="cadastro-form" class="form" action="{{url("User/")}}" method="post">
                             @csrf
                             <h3 class="text-center text-info">Cadastro</h3>
                             <div class="form-group">
@@ -30,7 +30,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Senha:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
+                                <input type="password" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <input type="submit" name="submit" class="btn btn-info btn-md text-center" value="Cadastrar">

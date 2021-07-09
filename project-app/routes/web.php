@@ -18,9 +18,17 @@ use Illuminate\Support\Facades\Route;
     return view('index');
 });
 */
-Route::resource('/', 'UserController');
-Route::post('/Auth','UserController@auth');
-Route::get('/Cadastrar', 'UserController@create');
+Route::resource('/', 'LoginController');
+Route::post('/Auth','LoginController@authenticate');
+
+/*Route::group(['middleware'=>'auth'], function(){
+    Route::get('/Logout', 'LoginController@logout');
+    Route::resource('/User', 'UserController');
+    Route::resource('/Clientes', 'ClienteController');
+    Route::resource('/Books', 'BookController');
+});*/
+Route::get('/Logout', 'LoginController@logout');
+Route::resource('/User', 'UserController');
 Route::resource('/Clientes', 'ClienteController');
 Route::resource('/Books', 'BookController');
 

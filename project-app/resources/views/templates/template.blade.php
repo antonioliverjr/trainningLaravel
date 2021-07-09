@@ -24,6 +24,11 @@
                     </li>
                 </ul>          
                 </div>
+                <div class="nav-item text">
+                    <div id="logout-link" class="text-right nav-link">
+                        <a href="{{url("/Logout")}}" class="nav-link nav-brand navbar-brand" style="font-size: 15px">SAIR</a>
+                    </div>
+                </div>
             </div>
         </nav>
     </main>

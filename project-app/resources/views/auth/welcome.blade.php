@@ -26,14 +26,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Senha:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
+                                <input type="password" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="remember-me" class="text-info"><span>Lembrar-me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
                                 <input type="submit" name="submit" class="btn btn-info btn-md text-center" value="Entrar">
                             </div>
                             <div id="register-link" class="text-right">
-                                <a href="{{url("Cadastrar/")}}" class="text-info">Cadastrar Aqui</a>
+                                <a href="{{url("User/create")}}" class="text-info">Cadastrar Aqui</a>
                             </div>
                         </form>
                     </div>

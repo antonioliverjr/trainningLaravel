@@ -4,10 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
 class UserController extends Controller
 {
+
+    private $objUser;
+
+    public function __construct()
+    {
+        $this->objUser = new User();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,23 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('auth.welcome');
-    }
-
-    public function auth(Request $request)
-    {
-        
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-        
-        if(Auth::attempt($credentials))
-        {
-            dd('Logou');
-        } else{
-            dd('Não Logou');
-        }
+        //return view('auth.welcome');
     }
 
     /**
@@ -52,7 +45,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cadUser=$this->objUser->create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password)
+        ]);
+        if($cadUser){
+            return redirect('/');
+        }
     }
 
     /**
