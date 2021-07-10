@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Route;
 });
 */
 Route::resource('/', 'LoginController');
+Route::resource('/User', 'UserController');
 Route::post('/Auth','LoginController@authenticate');
 
 Route::middleware(['auth'])->group(function(){
-    Route::get('/Logout', 'LoginController@logout');
-    Route::resource('/User', 'UserController');
-    Route::resource('/Clientes', 'ClienteController');
     Route::resource('/Books', 'BookController');
+    Route::resource('/Clientes', 'ClienteController');
+    Route::get('/Logout', 'LoginController@logout');
 });
 
 Route::get('/', 'LoginController@index')->name('login');
