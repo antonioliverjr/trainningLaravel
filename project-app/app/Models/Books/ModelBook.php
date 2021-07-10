@@ -12,8 +12,10 @@ class ModelBook extends Model
 
     protected $fillable = [
         'title',
+        'description',
         'pages',
         'price',
+        'image',
         'id_cliente',
     ];
 

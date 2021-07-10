@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\BookRequest;
 use App\Models\Books\ModelBook;
 use App\Models\Clientes\ModelClientes;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 class BookController extends Controller
@@ -48,12 +50,26 @@ class BookController extends Controller
      */
     public function store(BookRequest $request)
     {
+        if($request->file('image')->isValid()){
+            $name = Str::lower($request->title);
+            $name = Str::of($name)->remove(':', '/', '!', '(', ')','&', '@', '#', '*', '-', 'ª', 'º','{', '}', '[', ']')->kebab();
+            $extension = $request->image->extension();
+            $nameFile = "{$name}.{$extension}";
+        } else {
+            $nameFile = "";
+        }
+
         $cadBook=$this->objBook->create([
             'title'=>$request->title,
+            'description'=>$request->description,
             'pages'=>$request->pages,
             'price'=>$request->price,
-            'id_cliente'=>$request->id_cliente
+            'id_cliente'=>$request->id_cliente,
+            'image'=>$nameFile
         ]);
+
+        $request->image->storeAs('Cap-Books', $nameFile);
+
         if($cadBook){
             return redirect('Books');
         }
@@ -93,13 +109,28 @@ class BookController extends Controller
      */
     public function update(BookRequest $request, $id)
     {
+        if($request->file('image')->isValid()){
+            $name = Str::lower($request->title);
+            $name = Str::of($name)->remove(':', '/', '!', '(', ')','&', '@', '#', '*', '-', 'ª', 'º','{', '}', '[', ']')->kebab();
+            $extension = $request->image->extension();
+            $nameFile = "{$name}.{$extension}";
+        } else {
+            $nameFile = "";
+        }
+
         $this->objBook->where(['id'=>$id])->update([
             'title'=>$request->title,
+            'description'=>$request->description,
             'pages'=>$request->pages,
             'price'=>$request->price,
-            'id_cliente'=>$request->id_cliente
+            'id_cliente'=>$request->id_cliente,
+            'image'=>$nameFile
         ]);
-            return redirect('Books');
+
+        Storage::delete('<app><public>.Cap-Books.{$nameFile}');
+        $request->image->storeAs('Cap-Books', $nameFile);
+
+        return redirect('Books');
     }
 
     /**

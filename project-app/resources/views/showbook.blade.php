@@ -3,7 +3,9 @@
 @section('content')
     <h1 class="text-center">Visualizar Livro</h1>
     <hr>
-
+    <div class="text-center container-sm">
+        <img src="{{url('storage/Cap-Books/'.$book->image)}}" alt="Capa-Livro" width="200px">
+    </div>
     <div class="col-8 m-auto">
         @php
             $model_clientes=$book->find($book->id)->relCliente;
@@ -11,6 +13,7 @@
 
         <h4>Id: {{$book->id}}</h4> <br>
         <h4>Título: {{$book->title}}</h4> <br>
+        <h4>Descrição: {{$book->description}}</h4><br>
         <h4>Páginas: {{$book->pages}}</h4> <br>
         <h4>Preço: {{$book->price}}</h4> <br>
         <h4>Cliente: {{$model_clientes->name}}</h4> <br>
