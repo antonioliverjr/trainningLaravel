@@ -30,7 +30,7 @@
                 </select><br> 
                 <div class="mb-3">
                     <label class="form-label" for="image">Capa do Livro:</label>
-                    <input class="form-control" type="file" name="image" id="">
+                    <input class="form-control" type="file" name="image" id="image" value="{{$book->image ?? ''}}">
                 </div>               
                 <div class="text-center">
                 <input class="btn btn-primary" type="submit" value="@if(isset($book)) Atualizar @else Cadastrar @endif">

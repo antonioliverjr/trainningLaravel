@@ -51,9 +51,9 @@ class BookController extends Controller
      */
     public function store(BookRequest $request)
     {
-        if($request->file('image')->isValid()){
+        if($request->hasFile('image') && $request->file('image')->isValid()){
             $name = Str::lower($request->title);
-            $name = Str::of($name)->remove(':', '/', '!', '(', ')','&', '@', '#', '*', '-', 'ª', 'º','{', '}', '[', ']')->kebab();
+            $name = Str::of($name)->remove(':', '/', '!', '(', ')','&', '@', '#', '*', '-', 'ª', 'º','{', '}', '[', ']', '.')->kebab();
             $extension = $request->image->extension();
             $nameFile = "{$name}.{$extension}";
         } else {
@@ -69,7 +69,9 @@ class BookController extends Controller
             'image'=>$nameFile
         ]);
 
-        $request->image->storeAs('Cap-Books', $nameFile);
+        if($nameFile <> ""){
+            $request->image->storeAs('Cap-Books', $nameFile);
+        }
 
         if($cadBook){
             return redirect('Books');
@@ -110,13 +112,14 @@ class BookController extends Controller
      */
     public function update(BookRequest $request, $id)
     {
-        if($request->file('image')->isValid()){
+        if($request->hasFile('image') && $request->file('image')->isValid()){
             $name = Str::lower($request->title);
-            $name = Str::of($name)->remove(':', '/', '!', '(', ')','&', '@', '#', '*', '-', 'ª', 'º','{', '}', '[', ']')->kebab();
+            $name = Str::of($name)->remove(':', '/', '!', '(', ')','&', '@', '#', '*', '-', 'ª', 'º','{', '}', '[', ']', '.')->kebab();
             $extension = $request->image->extension();
             $nameFile = "{$name}.{$extension}";
         } else {
-            $nameFile = "";
+            $book=$this->objBook->find($id);
+            $nameFile=$book->image;
         }
 
         $this->objBook->where(['id'=>$id])->update([
@@ -128,8 +131,10 @@ class BookController extends Controller
             'image'=>$nameFile
         ]);
 
-        Storage::delete('<app><public>.Cap-Books.{$nameFile}');
-        $request->image->storeAs('Cap-Books', $nameFile);
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            Storage::disk('public')->delete('Cap-Books/'.$nameFile);
+            $request->image->storeAs('Cap-Books', $nameFile);
+        }
 
         return redirect('Books');
     }
@@ -142,7 +147,12 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
+        $book=$this->objBook->find($id);
+        $nameFile=$book->image;
+        Storage::delete('Cap-Books/'.$nameFile);
+        
         $del=$this->objBook->destroy($id);
         return($del)?"Sim":"Não";
+        //return($delCapa)?"Sim":"Não";
     }
 }
