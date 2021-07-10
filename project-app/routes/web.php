@@ -21,16 +21,19 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/', 'LoginController');
 Route::post('/Auth','LoginController@authenticate');
 
-/*Route::group(['middleware'=>'auth'], function(){
+Route::middleware(['auth'])->group(function(){
     Route::get('/Logout', 'LoginController@logout');
     Route::resource('/User', 'UserController');
     Route::resource('/Clientes', 'ClienteController');
     Route::resource('/Books', 'BookController');
-});*/
-Route::get('/Logout', 'LoginController@logout');
-Route::resource('/User', 'UserController');
-Route::resource('/Clientes', 'ClienteController');
-Route::resource('/Books', 'BookController');
+});
+
+Route::get('/', 'LoginController@index')->name('login');
+
+##Route::get('/Logout', 'LoginController@logout');
+##Route::resource('/User', 'UserController');
+##Route::resource('/Clientes', 'ClienteController');
+##Route::resource('/Books', 'BookController');
 
 
 ?>

@@ -24,7 +24,7 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $cliente=$this->objModelCliente->all()->sortBy('name');
         return view('index', compact('cliente'));
