@@ -48,6 +48,8 @@
                 @endforeach
             </tbody>
         </table>
+        {{$book->links('pagination::bootstrap-4')}}
     </div>
+
     <script src="{{url("assets/js/jsDelBook.js")}}"></script>
 @endsection

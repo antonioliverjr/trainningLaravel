@@ -15,7 +15,7 @@ class AddImageDescriptionTableBook extends Migration
     {
         Schema::table('book', function (Blueprint $table) {
             $table->string('image')->nullable()->after('price');
-            $table->longText('description')->nullable()->after('title');
+            $table->longText('description')->nullable(false)->after('title');
         });
     }
 

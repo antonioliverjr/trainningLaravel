@@ -25,17 +25,21 @@ class BookRequest extends FormRequest
     {
         return [
             'title'=>'required',
+            'description' => 'required',
             'pages'=>'required',
             'price'=>'required',
+            'id_cliente' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required' => 'Coloque o nome do Cliente!',
-            'pages.required' => 'Coloque o e-mail do Cliente!',
-            'price' => 'Digite um e-mail valido',
+            'title.required' => 'Coloque o nome do Livro!',
+            'description.required' => 'Informe uma descrição do Livro!',
+            'pages.required' => 'Informe a quantidade de paginas do Livro',
+            'price.required' => 'Informe o preço do Livro',
+            'id_cliente.required' => 'Selecione um cliente'
         ];
     }
 }

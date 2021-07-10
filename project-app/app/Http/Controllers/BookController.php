@@ -27,7 +27,8 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
-        $book=$this->objBook->all()->sortBy('title');
+        $book=$this->objBook->paginate(10);
+        //$book=$this->objBook->all()->sortBy('title');
         return view('book', compact('book'));
     }
 
