@@ -29,6 +29,12 @@ class BookController extends Controller
     {
         $book=$this->objBook->paginate(10);
         //$book=$this->objBook->all()->sortBy('title');
+        return view('sales', compact('book'));
+    }
+
+    public function records()
+    {
+        $book=$this->objBook->paginate(10);
         return view('book', compact('book'));
     }
 

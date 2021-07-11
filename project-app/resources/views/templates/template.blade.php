@@ -23,7 +23,10 @@
                         <a href="{{url("Clientes")}}" class="nav-link">CLIENTES</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{url("Books")}}" class="nav-link">LIVROS</a>
+                    <a href="{{url("Records")}}" class="nav-link">LIVROS</a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="{{url("Books")}}" class="nav-link">VENDAS</a>
                     </li>
                 </ul>          
                 </div>

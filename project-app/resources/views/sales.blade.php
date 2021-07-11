@@ -1,0 +1,29 @@
+@extends('templates.template')
+@section('content')
+    <h1 class="text-center">Livros Disponíveis</h1>
+    <hr>
+    
+    <div class="m-auto mb-5">
+        <div class="container mb-3">
+            <div class="row">
+                @foreach($book as $books)
+                    <div class="col-md-4">
+                        <div class="card">
+                                <div class="card-img-top text-center mt-2">
+                                    <img src="{{url('storage/Cap-Books/'.$books->image)}}" alt="Capa-Livro" style="width: 200px">
+                                </div>
+                                <div class="card-body">
+                                <p class="card-title text-center">{{$books->title}}</p>
+                                <p class="card-text text-center">{{'R$ '.number_format($books->price, 2, ',', '.')}}</p>
+                                <p class="text-center"><a href="{{url("Books/$books->id")}}" class="mr-1">
+                                <button class="btn btn-dark">Visualizar</button>
+                                </a></p>
+                                </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        {{$book->links('pagination::bootstrap-4')}}
+    </div>
+@endsection

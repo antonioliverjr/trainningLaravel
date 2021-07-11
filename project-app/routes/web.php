@@ -28,6 +28,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/Logout', 'LoginController@logout');
     Route::get('/Inactive', 'UserController@inactive');
     Route::get('/Inactive/Restore/{id}', 'UserController@restoreUser');
+    Route::get('/Records', 'BookController@records');
 });
 
 Route::get('/', 'LoginController@index')->name('login');
