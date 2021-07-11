@@ -33,6 +33,19 @@ class UserController extends Controller
         }
     }
 
+    public function inactive()
+    {
+        $inactive=$this->objUser->onlyTrashed()->get();
+        return view('auth.inactive', compact('inactive'));
+        
+    }
+
+    public function restoreUser($id)
+    {
+        User::onlyTrashed()->where(['id'=>$id])->restore();
+        return redirect('/User');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

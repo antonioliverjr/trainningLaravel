@@ -1,14 +1,11 @@
 @extends('templates.template')
 @section('content')
-    <h1 class="text-center">Usuarios</h1>
+    <h1 class="text-center">Usuarios Inativos</h1>
     <hr>
 
     <div class="text-center mt-3 mb-4">
-        <a href="{{url("User/create")}}">
-            <button class="btn btn-success">Cadastrar</button>
-        </a>
-        <a href="{{url("Inactive")}}" class="ml-5">
-            <button class="btn btn-danger">Inativos</button>
+        <a href="{{url("User")}}">
+            <button class="btn btn-success">Cadastros Ativos</button>
         </a>
     </div>
 
@@ -26,19 +23,16 @@
             </tr>
             </thead>
             <tbody>
-                @foreach($user as $users)
+                @foreach($inactive as $inactives)
                 <tr>
-                    <th scope="row">{{$users->id}}</th>
-                    <td>{{$users->name}}</td>
-                    <td>{{$users->email}}</td>
-                    <td>{{$users->created_at}}</td>
-                    <td>{{$users->updated_at}}</td>
+                    <th scope="row">{{$inactives->id}}</th>
+                    <td>{{$inactives->name}}</td>
+                    <td>{{$inactives->email}}</td>
+                    <td>{{$inactives->created_at}}</td>
+                    <td>{{$inactives->updated_at}}</td>
                     <td class="btn-group">
-                        <a href="{{url("User/$users->id/edit")}}" class="mr-1">
-                            <button class="btn btn-primary">Editar</button>
-                        </a>
-                        <a href="{{url("User/$users->id")}}" class="js-del mr-1">
-                            <button class="btn btn-danger">Excluir</button>
+                        <a href="{{url("Inactive/Restore/$inactives->id")}}" class="mr-1">
+                            <button class="btn btn-success">Ativar</button>
                         </a>
                     </td>
                 </tr>

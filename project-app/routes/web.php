@@ -26,6 +26,8 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('/Books', 'BookController');
     Route::resource('/Clientes', 'ClienteController');
     Route::get('/Logout', 'LoginController@logout');
+    Route::get('/Inactive', 'UserController@inactive');
+    Route::get('/Inactive/Restore/{id}', 'UserController@restoreUser');
 });
 
 Route::get('/', 'LoginController@index')->name('login');
