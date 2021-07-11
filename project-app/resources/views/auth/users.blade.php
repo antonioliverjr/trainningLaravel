@@ -44,5 +44,5 @@
         </table>
     </div>
 
-    <script src="{{url("assets/js/jsDelBook.js")}}"></script>
+    <script src="{{url("assets/js/jsDelUser.js")}}"></script>
 @endsection

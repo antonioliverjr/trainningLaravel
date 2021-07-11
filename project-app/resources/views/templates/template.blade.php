@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie-edge">
-    <title>Cadastro Livros e Clientes</title>
+    <title>Registros de Livros</title>
     <link rel="stylesheet" href="{{url('assets/bootstrap/css/bootstrap.min.css')}}">
 </head>
 <body>
@@ -14,7 +14,7 @@
                 <div class="collapse navbar-collapse">
                 <ul class="navbar-nav text">
                     <li class="nav-brand">
-                    <a class="navbar-brand" href="">LOGO</a>
+                    <a class="navbar-brand" href="{{url("/")}}"><img src="{{url('storage/logo/books-records.png')}}" alt="Logo" width="50px"></a>
                     </li>
                     <li class="nav-item">
                         <a href="{{url("User")}}" class="nav-link">USUARIO</a>

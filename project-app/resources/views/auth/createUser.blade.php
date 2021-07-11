@@ -25,6 +25,13 @@
                         @endif    
                             @csrf
                             <h3 class="text-center text-info">Cadastro</h3>
+                            @if(isset($errors) && count($errors)>0)
+                                <div class="text-center mt-4 mb-4 p-2 alert-danger">
+                                    @foreach($errors->all() as $erro)
+                                        {{$erro}}<br>
+                                    @endforeach
+                                </div>
+                            @endif
                             <div class="form-group">
                                 <label for="name" class="text-info">Nome:</label><br>
                                 <input type="text" name="name" id="name" class="form-control" value="{{$user->name ?? ''}}">
