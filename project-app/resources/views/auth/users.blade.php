@@ -15,10 +15,10 @@
             <thead class="">
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Título</th>
-                <th scope="col">Páginas</th>
-                <th scope="col">Preço</th>
-                <th scope="col">Cliente</th>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Data Cadastro</th>
+                <th scope="col">Data Atualização</th>
                 <th scope="col">Ações</th>
             </tr>
             </thead>

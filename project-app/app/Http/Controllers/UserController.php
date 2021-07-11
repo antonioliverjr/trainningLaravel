@@ -57,7 +57,7 @@ class UserController extends Controller
             'password'=>Hash::make($request->password)
         ]);
         if($cadUser){
-            return redirect('/');
+            return redirect('/User');
         }
     }
 
@@ -80,7 +80,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user=$this->objUser->find($id);
+        return view('auth.createUser')->with('user', $user);
     }
 
     /**
@@ -92,7 +93,21 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $newpassword = $request->password;
+        if($newpassword <> ""){
+            $this->objUser->where(['id'=>$id])->update([
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'password'=>Hash::make($newpassword)
+            ]);
+        } else {
+            $this->objUser->where(['id'=>$id])->update([
+                'name'=>$request->name,
+                'email'=>$request->email
+               ]);
+        }
+        return redirect('/User'); 
+        
     }
 
     /**
