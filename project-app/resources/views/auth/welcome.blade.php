@@ -20,6 +20,13 @@
                         <form id="login-form" class="form" action="{{url("Auth/")}}" method="post">
                             @csrf
                             <h3 class="text-center text-info">Login</h3>
+                            @if(isset($errors) && count($errors)>0)
+                            <div class="text-center mt-4 mb-4 p-2 alert-danger">
+                                @foreach($errors->all() as $erro)
+                                    {{$erro}}<br>
+                                @endforeach
+                            </div>
+                            @endif
                             <div class="form-group">
                                 <label for="email" class="text-info">E-mail:</label><br>
                                 <input type="text" name="email" id="email" class="form-control">
@@ -31,9 +38,6 @@
                             <div class="form-group">
                                 <label for="remember-me" class="text-info"><span>Lembrar-me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
                                 <input type="submit" name="submit" class="btn btn-info btn-md text-center" value="Entrar">
-                            </div>
-                            <div id="register-link" class="text-right">
-                                <a href="{{url("User/create")}}" class="text-info">Cadastrar Aqui</a>
                             </div>
                         </form>
                     </div>

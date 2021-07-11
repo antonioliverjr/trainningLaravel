@@ -22,9 +22,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //return view('auth.welcome');
+        if($request->user())
+        {
+            $user=$this->objUser->all();
+            return view('auth.users', compact('user'));
+        } else {
+            return redirect('/');
+        }
     }
 
     /**

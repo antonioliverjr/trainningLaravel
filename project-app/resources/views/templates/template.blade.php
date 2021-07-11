@@ -17,6 +17,9 @@
                     <a class="navbar-brand" href="">LOGO</a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{url("User")}}" class="nav-link">USUARIO</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{url("Clientes")}}" class="nav-link">CLIENTES</a>
                     </li>
                     <li class="nav-item">

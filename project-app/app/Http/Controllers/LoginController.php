@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 //use Illuminate\Support\Facades\Hash;
 //use App\Models\User;
@@ -26,18 +27,16 @@ class LoginController extends Controller
         }
     }
 
-    public function authenticate(Request $request)
+    public function authenticate(LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
+        $credentials = $request->only(['email', 'password']);
         if(Auth::attempt($credentials))
         {
             return redirect('Books');
         } else{
-            return ;
+            return back()->withErrors([
+                'login'=>'E-mail e senha não correspondem ao cadastrado!',
+            ]);
         }
     }
 

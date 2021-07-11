@@ -1,0 +1,48 @@
+@extends('templates.template')
+@section('content')
+    <h1 class="text-center">Usuarios</h1>
+    <hr>
+
+    <div class="text-center mt-3 mb-4">
+        <a href="{{url("User/create")}}">
+            <button class="btn btn-success">Cadastrar</button>
+        </a>
+    </div>
+
+    <div class="col-8 m-auto">
+        @csrf
+        <table class="table table-success table-striped text-center">
+            <thead class="">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Título</th>
+                <th scope="col">Páginas</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach($user as $users)
+                <tr>
+                    <th scope="row">{{$users->id}}</th>
+                    <td>{{$users->name}}</td>
+                    <td>{{$users->email}}</td>
+                    <td>{{$users->created_at}}</td>
+                    <td>{{$users->updated_at}}</td>
+                    <td class="btn-group">
+                        <a href="{{url("User/$users->id/edit")}}" class="mr-1">
+                            <button class="btn btn-primary">Editar</button>
+                        </a>
+                        <a href="{{url("User/$users->id")}}" class="js-del mr-1">
+                            <button class="btn btn-danger">Excluir</button>
+                        </a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <script src="{{url("assets/js/jsDelBook.js")}}"></script>
+@endsection
