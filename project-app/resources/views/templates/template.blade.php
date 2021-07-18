@@ -28,13 +28,16 @@
                     <li class="nav-item">
                     <a href="{{url("Books")}}" class="nav-link">VENDAS</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{url("/Logout")}}" class="nav-link">SAIR</a>
+                    </li>
                 </ul>          
                 </div>
-                <div class="nav-item text">
-                    <div id="logout-link" class="text-right nav-link">
-                        <a href="{{url("/Logout")}}" class="nav-link nav-brand navbar-brand" style="font-size: 15px">SAIR</a>
-                    </div>
-                </div>
+                <form name="searchSite" id="searchSite" method="post" action="{{url("Search")}}" class="nav-item d-flex" style="width: 250px; height: 25px" >
+                    @csrf
+                    <input class="form-control" type="search" name="search" id="search" placeholder="Pesquisar Livros" aria-label="Pesquisar">
+                    <button class="btn btn-outline-success" type="submit" style="height: 38px">GO</button>
+                </form>
             </div>
         </nav>
     </main>

@@ -38,7 +38,7 @@
                             <button class="btn btn-primary">Editar</button>
                         </a>
                         <a href="{{url("User/$users->id")}}" class="js-del mr-1">
-                            <button class="btn btn-danger">Excluir</button>
+                            <button class="btn btn-danger">Bloquear</button>
                         </a>
                     </td>
                 </tr>

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
+
+
 class BookController extends Controller
 {
     private $objBook;
@@ -27,8 +29,14 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
-        $book=$this->objBook->paginate(10);
-        //$book=$this->objBook->all()->sortBy('title');
+        $book=$this->objBook->paginate(9);
+        return view('sales', compact('book'));
+    }
+
+    public function searchBook(Request $request)
+    {
+        $search = $request->search;
+        $book=$this->objBook->where('title', 'ILIKE', '%'.$search.'%')->orWhere('description', 'ILIKE', '%'.$search.'%')->paginate(9);
         return view('sales', compact('book'));
     }
 

@@ -29,6 +29,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/Inactive', 'UserController@inactive');
     Route::get('/Inactive/Restore/{id}', 'UserController@restoreUser');
     Route::get('/Records', 'BookController@records');
+    Route::post('/Search', 'BookController@searchBook');
 });
 
 Route::get('/', 'LoginController@index')->name('login');
