@@ -33,10 +33,14 @@
                     </li>
                 </ul>          
                 </div>
+                <div class="nav-brand nav-item">
+                    <a href="{{url("/Carrinho")}}" class="nav-link d-flex" style="color: white"><i class="fas fa-cart-arrow-down fa-2x"></i></a>
+                    {{-- <img src="{{url('storage/logo/icone-carrinho.png')}}" alt="carrinho" style="width: 45px; height: 30px"> --}}
+                </div>
                 <form name="searchSite" id="searchSite" method="post" action="{{url("Search")}}" class="nav-item d-flex" style="width: 250px; height: 25px" >
                     @csrf
                     <input class="form-control" type="search" name="search" id="search" placeholder="Pesquisar Livros" aria-label="Pesquisar">
-                    <button class="btn btn-outline-success" type="submit" style="height: 38px">GO</button>
+                    <button class="btn btn-outline-success" type="submit" style="height: 38px"><i class="fas fa-search"></i></button>
                 </form>
             </div>
         </nav>
