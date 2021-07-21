@@ -15,6 +15,15 @@
                                 <div class="card-body">
                                 <p class="card-title text-center">{{$books->title}}</p>
                                 <p class="card-text text-center">{{'R$ '.number_format($books->price, 2, ',', '.')}}</p>
+                                <p class="text-center">
+                                    <div class="text-center">
+                                        <form action="{{url("/Cart")}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$books->id}}">
+                                            <input type="submit" class="btn btn-success" value="Comprar">
+                                        </form>
+                                    </div>
+                                </p>
                                 <p class="text-center"><a href="{{url("Books/$books->id")}}" class="mr-1">
                                 <button class="btn btn-dark">Visualizar</button>
                                 </a></p>

@@ -48,7 +48,7 @@
                                 R$ {{number_format($purchase_book->discount, 2, '.', ',')}}
                             </td>
                             @php
-                                $total_purchase_book = $purchase_book->relBooks->price - $purchase_book->discount;
+                                $total_purchase_book = ($purchase_book->relBooks->price * $purchase_book->quantity) - $purchase_book->discount;
                                 $total_purchase += $total_purchase_book;
                             @endphp
                             <td class="align-middle">
@@ -62,6 +62,16 @@
                     <p>
                         <strong>Total do pedido: </strong>
                         <span>R$ {{number_format($total_purchase, 2, '.', ',')}}</span>
+                    </p>
+                </div>
+                <div class="col-6 text-right">
+                    <p>
+                        <a href="{{url("/Books")}}" class="btn btn-primary">Continuar Compras</a>
+                    </p>
+                </div>
+                <div class="col-6 text-left">
+                    <p>
+                        <a href="{{url("")}}" class="btn btn-success">Finalizar Compra</a>
                     </p>
                 </div>
             @empty

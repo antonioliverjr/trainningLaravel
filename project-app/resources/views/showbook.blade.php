@@ -20,6 +20,15 @@
         <h4>Data de Criação: {{$book->created_at}}</h4> <br>
     </div>
     <hr>
+    <p class="text-center">
+        <div class="text-center">
+            <form action="{{url("/Cart")}}" method="post">
+                @csrf
+                <input type="hidden" name="id" value="{{$book->id}}">
+                <input type="submit" class="btn btn-success" value="Comprar">
+            </form>
+        </div>
+    </p>
     <div class="text-center">
     <a href="{{url("Books")}}">
         <button class="btn btn-outline-info">Voltar</button>

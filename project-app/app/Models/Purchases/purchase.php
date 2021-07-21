@@ -18,12 +18,12 @@ class purchase extends Model
 
     public function RelCliente()
     {
-        return $this->hasOne('App\Models\Clientes\ModelClientes', 'id', 'id_cliente');
+        return $this->hasMany('App\Models\Clientes\ModelClientes', 'id', 'id_cliente');
     }
 
     public function RelUser()
     {
-        return $this->hasOne('App\Models\User', 'id', 'id_user');
+        return $this->hasMany('App\Models\User', 'id',);
     }
 
     public function RelPurchaseBook()

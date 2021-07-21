@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Purchases\purchase;
 use App\Models\Purchases\purchase_book;
+use App\Models\Books\ModelBook;
 
 
 class CartController extends Controller
@@ -45,7 +46,37 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id_book = $request->id;
+        
+        $book=ModelBook::find($id_book);
+        $id_user=Auth::id();
+        
+        $purchase_exist=$this->objPurchase->where('id_user','=',$id_user)->where('status','=','reserved')->get();
+        
+        if(sizeof($purchase_exist) == 0)
+        {
+            $purchase_new=$this->objPurchase->create([
+                'id_user'=>$id_user
+            ]);
+        } else{
+            $id_purchase=$purchase_exist[0]->id;
+        }
+
+        if(empty($id_purchase))
+        {
+            $id_purchase=$this->objPurchase->where('id_user','=',$id_user)->where('status','=','reserved')->get();
+        }
+        
+        if(!empty($book) && !empty($id_purchase))
+        {
+            $purchase_book_new=$this->objPurchaseBook->create([
+                'id_purchase'=>$id_purchase,
+                'id_book'=>$book->id,
+                'price_book'=>$book->price,
+            ]);
+        }
+
+        return redirect('Cart');
     }
 
     /**

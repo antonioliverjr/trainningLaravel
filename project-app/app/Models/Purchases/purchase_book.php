@@ -19,7 +19,7 @@ class purchase_book extends Model
     ];
 
     public function RelPurchase(){
-        return $this->hasOne('App\Models\Purchases\purchase', 'id');
+        return $this->hasMany('App\Models\Purchases\purchase', 'id');
     }
 
     public function RelBooks()

@@ -30,7 +30,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/Inactive/Restore/{id}', 'UserController@restoreUser');
     Route::get('/Records', 'BookController@records');
     Route::post('/Search', 'BookController@searchBook');
-    Route::resource('/Carrinho', 'CartController');
+    Route::resource('/Cart', 'CartController');
 });
 
 Route::get('/', 'LoginController@index')->name('login');
