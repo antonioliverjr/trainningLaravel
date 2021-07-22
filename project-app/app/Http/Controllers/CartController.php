@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Purchases\purchase;
 use App\Models\Purchases\purchase_book;
 use App\Models\Books\ModelBook;
-
+use phpDocumentor\Reflection\Types\Boolean;
 
 class CartController extends Controller
 {
@@ -47,7 +47,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $id_book = $request->id;
-        
+
         $book=ModelBook::find($id_book);
         $id_user=Auth::id();
         
@@ -64,7 +64,8 @@ class CartController extends Controller
 
         if(empty($id_purchase))
         {
-            $id_purchase=$this->objPurchase->where('id_user','=',$id_user)->where('status','=','reserved')->get();
+            $id_purchases=$this->objPurchase->where('id_user','=',$id_user)->where('status','=','reserved')->get();
+            $id_purchase=$id_purchases[0]->id;
         }
         
         if(!empty($book) && !empty($id_purchase))
@@ -119,8 +120,34 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $id_user=Auth::id();
+        $id_book=$request->id;
+        $id_purchase=$request->idPurchase;
+        $id_purchase_books=$this->objPurchaseBook->where('id_book','=',$id_book)->where('id_purchase','=',$id_purchase)->where('status','=','reserved')->get();        
+        $remove_item=(Boolean)$request->item;
+        $id_purchase_book=$this->objPurchaseBook->where('id_book','=',$id_book)->where('id_purchase','=',$id_purchase)->where('status','=','reserved')->orderBy('id', 'desc')->get();
+
+        if(sizeof($id_purchase_books) == 0)
+        {
+            return redirect('Cart');
+        } else if($remove_item)
+        {
+            $id_purchase_item=$id_purchase_book[0]->id;
+            $purchase_book_del=$this->objPurchaseBook->where('id','=',$id_purchase_item)->delete();
+        } else {
+            $purchase_books_del=$this->objPurchaseBook->where('id_book','=',$id_book)->where('id_purchase','=',$id_purchase)->where('status','=','reserved')->delete();
+        }
+
+        $purchase_books_items=$this->objPurchaseBook->where('id_purchase','=',$id_purchase)->get();
+        
+        if(sizeof($purchase_books_items) == 0)
+        {
+            $purchase_del=$this->objPurchase->where('id','=',$id_purchase)->delete();
+            return redirect('Books');
+        }else{
+            return redirect('Cart');
+        }        
     }
 }

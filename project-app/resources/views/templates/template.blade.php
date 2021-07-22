@@ -35,7 +35,6 @@
                 </div>
                 <div class="nav-brand nav-item">
                     <a href="{{url("/Cart")}}" class="nav-link d-flex" style="color: white"><i class="fas fa-cart-arrow-down fa-2x"></i></a>
-                    {{-- <img src="{{url('storage/logo/icone-carrinho.png')}}" alt="carrinho" style="width: 45px; height: 30px"> --}}
                 </div>
                 <form name="searchSite" id="searchSite" method="post" action="{{url("Search")}}" class="nav-item d-flex" style="width: 250px; height: 25px" >
                     @csrf
@@ -49,7 +48,9 @@
     <footer class="text-center modal-footer bg-dark text-white">
     <p>Desenvolvedor Antonio Batista de Oliveira Junior<i class="far fa-copyright"></i></p>
     </footer>
-
+    @stack('scripts')
+    <script type="text-javascrit" src="/public/assets/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/public/assets/js/jsCartPurchase.js"></script>
     <script src="https://kit.fontawesome.com/ff27582da3.js" crossorigin="anonymous"></script>
 </body>
 </html>

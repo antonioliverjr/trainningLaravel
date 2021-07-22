@@ -27,16 +27,36 @@
                         @foreach ($purchase->RelPurchaseBook as $purchase_book)
                         <tr>
                             <th scope="row align-middle">
-                                <img src="{{url('storage/Cap-Books/'.$purchase_book->RelBooks->image)}}" alt="capa" width="50px">
+                                <img src="{{url('storage/Cap-Books/'.$purchase_book->RelBooks->image)}}" alt="capa" width="80px">
                             </th>
                             <td class="align-middle">
-                                <div>
-                                    <a href="" class="col-4 text-info"><i class="fas fa-minus-circle"></i></a>
+                                <div class="d-flex">
+                                    <div class="col-4">
+                                        <form action="{{url("Cart/Remove")}}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{$purchase_book->relBooks->id}}">
+                                        <input type="hidden" name="idPurchase" value="{{$purchase->id}}">
+                                        <input type="hidden" name="item" value="1">
+                                        <input type="submit" class="btn btn-primary" value="-">
+                                        </form>
+                                    </div>
                                     <span class="col-4">{{$purchase_book->quantity}}</span>
-                                    <a href="" class="col-4 text-info"><i class="fas fa-plus-circle"></i></a>
+                                    <div class="col-4">
+                                        <form action="{{url("Cart/Add")}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$purchase_book->relBooks->id}}">
+                                            <input type="submit" class="btn btn-primary" value="+">
+                                        </form>
+                                    </div>
                                 </div>
                                 <hr>
-                                <a href="" class="text-danger" style="text-decoration: none">Retirar produto</a>
+                                <form action="{{url("Cart/Remove")}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$purchase_book->relBooks->id}}">
+                                    <input type="hidden" name="idPurchase" value="{{$purchase->id}}">
+                                    <input type="hidden" name="item" value="0">
+                                    <input type="submit" class="text-danger" style="box-shadow: 0 0 0 0; border: 0 none; outline: 0; background: none" value="Retirar produto">
+                                </form>
                             </td>
                             <td class="align-middle">
                                 {{$purchase_book->relBooks->title}}
@@ -79,4 +99,15 @@
             @endforelse
         </div>
     </div>
+    <form id="form-remove-item" method="post" action="{{url("/Cart/Remove")}}">
+        @csrf
+        @method('DELETE')
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="idPurchase">
+        <input type="hidden" name="item">
+    </form>
+    <form id="form-add-item" method="post" action="{{url("/Cart/Add")}}">
+        @csrf
+        <input type="hidden" name="id">
+    </form>
 @endsection

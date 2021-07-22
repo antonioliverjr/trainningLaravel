@@ -31,6 +31,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/Records', 'BookController@records');
     Route::post('/Search', 'BookController@searchBook');
     Route::resource('/Cart', 'CartController');
+    Route::post('/Cart/Add', 'CartController@store');
+    Route::post('/Cart/Remove', 'CartController@destroy');
 });
 
 Route::get('/', 'LoginController@index')->name('login');
