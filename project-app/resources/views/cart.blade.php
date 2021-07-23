@@ -2,6 +2,15 @@
 @section('content')
     <h1 class="text-center">Carrinho de Compras</h1>
     <hr>
+    <div class="col-12 m-auto">
+        @if(isset($errors) && count($errors)>0)
+            <div class="text-center mt-4 mb-4 p-2 alert-danger">
+                @foreach($errors->all() as $erro)
+                    {{$erro}}<br>
+                @endforeach
+            </div>
+        @endif
+    </div>
     <div class="container">
         <div class="row">
             <h3 class="col-12 text-center">Produtos do carrinho</h3>
@@ -9,7 +18,7 @@
             @forelse($purchases as $purchase)
                 <h5 class="col-6 text-left">Pedido: {{$purchase->id}}</h5>
                 <h5 class="col-6 text-right">Criado em: {{$purchase->created_at->format('d/m/Y H:i')}}</h5>
-                <table class="table text-center">
+                <table class="table table-success table-striped text-center">
                     <thead>
                         <tr>
                             <th scope="col-2">Capa</th>
@@ -79,35 +88,53 @@
                     </tbody>
                 </table>
                 <div class="col-12 text-right">
-                    <p>
+                    <p><hr>
                         <strong>Total do pedido: </strong>
                         <span>R$ {{number_format($total_purchase, 2, '.', ',')}}</span>
-                    </p>
+                    </p><hr>
                 </div>
-                <div class="col-6 text-right">
+                <div class="col-3 text-center">
                     <p>
-                        <a href="{{url("/Books")}}" class="btn btn-primary">Continuar Compras</a>
+                        <a href="{{url("/Books")}}" class="btn btn-primary">Ver mais Livros</a>
                     </p>
                 </div>
-                <div class="col-6 text-left">
+                <div class="col-2 text-center">
                     <p>
-                        <a href="{{url("")}}" class="btn btn-success">Finalizar Compra</a>
+                        <a href="{{url("Clientes/create")}}" class="btn btn-primary">Cadastrar Cliente</a>
                     </p>
                 </div>
+                <div class="col-5">
+                    <p>
+                    <form name="purchaseEnd" action="{{url("/Cart/$purchase->id")}}" method="post">
+                        @csrf
+                        @method('PUT')
+                        {{--<input type="hidden" name="id_purchase" value="{{$purchase->id}}">--}}
+                        <select class="custom-select" name="id_cliente">
+                            <option selected>Selecionar Cliente</option>
+                            @foreach($model_clientes as $cliente)
+                                <option value="{{$cliente->id}}">{{$cliente->name}}</option>
+                            @endforeach
+                        </select>
+                    </p>
+                </div>
+                <div class="col-2 text-right">
+                    <p>
+                        <input type="submit" class="btn btn-success" value="Finalizar Venda">
+                    </p>
+                </div>
+                    </form>
             @empty
+            <div class="col-12 container text-center">
+            <hr>
+            <p>
                 <h5>Não há nenhum pedido o carrinho</h5>
+            </p>    
+            <hr>
+            <p>
+                <a href="{{url("History")}}" class="btn btn-primary">Historico de Pedidos</a>
+            </p>
+            </div>
             @endforelse
         </div>
     </div>
-    <form id="form-remove-item" method="post" action="{{url("/Cart/Remove")}}">
-        @csrf
-        @method('DELETE')
-        <input type="hidden" name="id" value="">
-        <input type="hidden" name="idPurchase">
-        <input type="hidden" name="item">
-    </form>
-    <form id="form-add-item" method="post" action="{{url("/Cart/Add")}}">
-        @csrf
-        <input type="hidden" name="id">
-    </form>
 @endsection

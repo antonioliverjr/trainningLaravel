@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ClienteRequest;
 use App\Models\Clientes\ModelClientes;
 use App\Models\User;
+use App\Models\Purchases\purchase;
 
 class ClienteController extends Controller
 {
@@ -17,6 +18,7 @@ class ClienteController extends Controller
     {
         $this->objUser=new User();
         $this->objModelCliente=new ModelClientes();
+        $this->objPurchase=new Purchase();
     }
 
     /**
@@ -67,7 +69,8 @@ class ClienteController extends Controller
     public function show($id)
     {
         $Model_Clientes=$this->objModelCliente->find($id);
-        return view('show', compact('Model_Clientes'));
+        $purchases=$this->objPurchase->where(['id_cliente'=>$id])->orderBy('id')->paginate(1);
+        return view('show', compact('Model_Clientes', 'purchases'));
     }
 
     /**

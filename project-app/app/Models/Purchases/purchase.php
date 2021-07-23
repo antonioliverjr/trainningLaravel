@@ -18,7 +18,7 @@ class purchase extends Model
 
     public function RelCliente()
     {
-        return $this->hasMany('App\Models\Clientes\ModelClientes', 'id', 'id_cliente');
+        return $this->hasMany('App\Models\Clientes\ModelClientes', 'id');
     }
 
     public function RelUser()
@@ -35,5 +35,10 @@ class purchase extends Model
                     ->selectRaw('sum(price_book) as prices_books')
                     ->groupBy('id_book')
                     ->orderBy('id_book', 'desc');
+    }
+
+    public function RelPurchaseBookItem()
+    {
+        return $this->hasMany('App\Models\Purchases\purchase_book', 'id_purchase');
     }
 }

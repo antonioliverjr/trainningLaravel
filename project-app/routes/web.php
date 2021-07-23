@@ -30,7 +30,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/Inactive/Restore/{id}', 'UserController@restoreUser');
     Route::get('/Records', 'BookController@records');
     Route::post('/Search', 'BookController@searchBook');
+});
+
+Route::middleware(['auth'])->group(function(){
     Route::resource('/Cart', 'CartController');
+    Route::get('/History', 'CartController@purchases');
     Route::post('/Cart/Add', 'CartController@store');
     Route::post('/Cart/Remove', 'CartController@destroy');
 });

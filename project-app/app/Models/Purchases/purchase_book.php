@@ -18,7 +18,8 @@ class purchase_book extends Model
         'discount',
     ];
 
-    public function RelPurchase(){
+    public function RelPurchase()
+    {
         return $this->hasMany('App\Models\Purchases\purchase', 'id');
     }
 

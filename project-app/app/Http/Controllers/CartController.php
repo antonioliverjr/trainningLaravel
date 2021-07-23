@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Purchases\purchase;
 use App\Models\Purchases\purchase_book;
 use App\Models\Books\ModelBook;
+use App\Models\Clientes\ModelClientes;
 use phpDocumentor\Reflection\Types\Boolean;
 
 class CartController extends Controller
@@ -15,6 +16,7 @@ class CartController extends Controller
     {
         $this->objPurchase=new purchase();
         $this->objPurchaseBook=new purchase_book();
+        $this->objModelCliente=new ModelClientes();
     }
 
     /**
@@ -25,7 +27,26 @@ class CartController extends Controller
     public function index()
     {
         $purchases=$this->objPurchase->where(['status'=>'reserved','id_user'=>Auth::id()])->get();
-        return view('cart', compact('purchases'));
+        $model_clientes=$this->objModelCliente->all()->sortBy('name');
+        return view('cart', compact('purchases', 'model_clientes'));
+    }
+
+    /**
+     * Display a listing of the get
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function purchases()
+    {
+        $purchases_paid=$this->objPurchase->where(['status'=>'paid','id_user'=>Auth::id()])->orderBy('created_at', 'desc')->paginate(5);
+        $purchases_cancel=$this->objPurchase->Where(['status'=>'canceled','id_user'=>Auth::id()])->orderBy('updated_at', 'desc')->paginate(5);
+        
+        if(sizeof($purchases_paid) == 0 && sizeof($purchases_cancel) == 0)
+        {
+            return back()->withErrors('Não há historico de pedidos para exibir');
+        } else {
+            return view('carthistory', compact('purchases_paid', 'purchases_cancel'));        
+        }
     }
 
     /**
@@ -51,7 +72,7 @@ class CartController extends Controller
         $book=ModelBook::find($id_book);
         $id_user=Auth::id();
         
-        $purchase_exist=$this->objPurchase->where('id_user','=',$id_user)->where('status','=','reserved')->get();
+        $purchase_exist=$this->objPurchase->where(['id_user'=>$id_user, 'status'=>'reserved'])->get();
         
         if(sizeof($purchase_exist) == 0)
         {
@@ -64,7 +85,7 @@ class CartController extends Controller
 
         if(empty($id_purchase))
         {
-            $id_purchases=$this->objPurchase->where('id_user','=',$id_user)->where('status','=','reserved')->get();
+            $id_purchases=$this->objPurchase->where(['id_user'=>$id_user, 'status'=>'reserved'])->get();
             $id_purchase=$id_purchases[0]->id;
         }
         
@@ -111,7 +132,24 @@ class CartController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $id_cliente=$request->id_cliente;
+        $id_purchase=$id;
+
+        if($id_cliente == "Selecionar Cliente")
+        {
+            return back()->withErrors('Para finalizar o pedido deve selecionar um cliente!');
+        }
+
+        $purchase_pay=$this->objPurchase->where('id','=',$id_purchase)->update(['id_cliente'=>$request->id_cliente, 'status'=>'paid']);
+        $purchase_items_pay=$this->objPurchaseBook->where('id_purchase','=',$id_purchase)->update(['status'=>'paid']);
+
+        $consulta_purchase_pay=$this->objPurchaseBook->where('id_purchase','=',$id_purchase)->where('status','=','paid')->get();
+
+        if(sizeof($consulta_purchase_pay) == 0){
+            return back()->withErrors('Ocorreu uma erro na execução do pagamento do pedido!');
+        }
+
+        return redirect('Cart');
     }
 
     /**

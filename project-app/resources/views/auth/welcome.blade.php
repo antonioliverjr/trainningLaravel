@@ -11,7 +11,7 @@
 </head>
 <body>
     <section>
-    <div id="login">
+    <div id="login align-items-center" style="width: 700px; display: block; margin-left: auto; margin-right: auto">
         <h3 class="text-center text-blue pt-5">Acesso ao Sistema</h3>
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
