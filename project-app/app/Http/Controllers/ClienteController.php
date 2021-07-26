@@ -39,7 +39,6 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        /**$user=$this->objUser->all();*/
         return view('createcliente');
     }
 
@@ -51,10 +50,24 @@ class ClienteController extends Controller
      */
     public function store(ClienteRequest $request)
     {
-        $cadcliente=$this->objModelCliente->create([
-            'name'=>$request->name,
-            'email'=>$request->email
-        ]);
+        $exist_email=$this->objModelCliente->withTrashed()->where(['email'=>$request->email])->exists();
+
+        if(!$exist_email)
+        {
+            $cadcliente=$this->objModelCliente->create([
+                'name'=>$request->name,
+                'email'=>$request->email
+            ]);
+        } else if($exist_email){
+            $email_bloq=ModelClientes::onlyTrashed()->where(['email'=>$request->email])->exists();
+            if($email_bloq){
+                ModelClientes::onlyTrashed()->where(['email'=>$request->email])->restore();
+                return redirect('Clientes');
+            } else{
+                return back()->withErrors('Não é possível realizar o cadastro de e-mail ativo!');
+            }
+        }
+
         if($cadcliente){
             return redirect('Clientes');
         }
