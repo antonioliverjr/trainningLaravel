@@ -191,6 +191,42 @@ class CartController extends Controller
 
     public function canceled(Request $request)
     {
-        dd($request->id_purchase);
+        $id_purchase=$request->id_purchase;
+        $id_books=$request->id_book;
+        $id_user=Auth::id();
+        
+        if(empty($id_books))
+        {
+            return back()->withErrors('Selecione os livros a serem cancelados!');
+        }
+
+        $purchase=$this->objPurchase->where(['id'=>$id_purchase, 'id_user'=>$id_user, 'status'=>'paid'])->exists();
+        $purchase_books=$this->objPurchaseBook->where(['id_purchase'=>$id_purchase, 'status'=>'paid'])->whereIn('id', $id_books)->exists();
+
+        if(!$purchase)
+        {
+            return back()->withErrors('O pedido não foi finalizado ou pertence a outro usuário!');
+        } else if(!$purchase_books){
+            if(count($id_books) > 1)
+            {
+                return back()->withErrors('Os itens não foram finalizados!');
+            } else{
+                return back()->withErrors('Os itens não foram finalizados!');
+            }
+        } else{
+            $purchase_book_cancel=$this->objPurchaseBook->where(['id_purchase'=>$id_purchase, 'status'=>'paid'])->whereIn('id', $id_books)
+                                                        ->update(['status'=>'canceled']);
+        }
+
+        $purchase_books=$this->objPurchaseBook->where(['id_purchase'=>$id_purchase, 'status'=>'paid'])->exists();
+
+        if(!$purchase_books)
+        {
+            $purchase_cancel=$this->objPurchase->where(['id'=>$id_purchase])->update(['status'=>'canceled']);
+            return redirect('History');
+        } else{
+            return redirect('History');
+        }
+
     }
 }

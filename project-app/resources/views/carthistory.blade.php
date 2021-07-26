@@ -49,7 +49,7 @@
                                     <input type="checkbox" name="id_book[]" id="item-{{$purchase_book->id}}" value="{{$purchase_book->id}}">
                                 </p>
                                 @else
-                                    <strong>Cancelado</strong>
+                                    <strong class="text-danger">Cancelado</strong>
                                 @endif
                             </th>
                             <td>
@@ -99,7 +99,7 @@
         {{$purchases_paid->links('pagination::bootstrap-4')}} 
     </div>
     
-    <div class="container">
+    <div class="container text-danger">
         <div class="row">
             <h3 class="col-12 text-center">Vendas Canceladas</h3>
             <hr>
