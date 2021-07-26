@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ClienteRequest;
 use App\Models\Clientes\ModelClientes;
-use App\Models\User;
 use App\Models\Purchases\purchase;
+use App\Models\User;
 
 class ClienteController extends Controller
 {
@@ -109,7 +109,17 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        $del=$this->objModelCliente->destroy($id);
-        return($del)?"Sim":"Não";
+        $cliente_purchases=$this->objPurchase->where(['id_cliente'=>$id])->exists();
+
+        if($cliente_purchases)
+        {
+            $del=$this->objModelCliente->destroy($id);
+            return($del)?"Sim":"Não";
+        } else{
+            $force_del=$this->objModelCliente->deletedAtNull($id);
+            return ($force_del)?"Sim":"Não";
+        }
+
+        
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\BookRequest;
 use App\Models\Books\ModelBook;
 use App\Models\Clientes\ModelClientes;
+use App\Models\Purchases\purchase_book;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -21,6 +22,7 @@ class BookController extends Controller
     {
         $this->objBook=new ModelBook();
         $this->objModelCliente=new ModelClientes();
+        $this->objPurchaseBook=new purchase_book();
     }
     /**
      * Display a listing of the resource.
@@ -161,12 +163,19 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        $book=$this->objBook->find($id);
-        $nameFile=$book->image;
-        Storage::delete('Cap-Books/'.$nameFile);
-        
-        $del=$this->objBook->destroy($id);
-        return($del)?"Sim":"Não";
-        //return($delCapa)?"Sim":"Não";
+        $book_purchases=$this->objPurchaseBook->where(['id_book'=>$id])->exists();
+
+        if($book_purchases)
+        {
+            $del=$this->objBook->destroy($id);
+            return($del)?"Sim":"Não";
+        } else{
+            $book=$this->objBook->find($id);
+            $nameFile=$book->image;
+            Storage::delete('Cap-Books/'.$nameFile);
+
+            $force_del=$this->objBook->deletedAtNull($id);
+            return($force_del)?"Sim":"Não";
+        }
     }
 }

@@ -18,7 +18,6 @@
                 <th scope="col">Título</th>
                 <th scope="col">Páginas</th>
                 <th scope="col">Preço</th>
-                <th scope="col">Cliente</th>
                 <th scope="col">Ações</th>
             </tr>
             </thead>
@@ -32,7 +31,6 @@
                     <td>{{$books->title}}</td>
                     <td>{{$books->pages}}</td>
                     <td>{{$books->price}}</td>
-                    <td>{{$cliente->name}}</td>
                     <td class="btn-group">
                         <a href="{{url("Books/$books->id")}}" class="mr-1">
                             <button class="btn btn-dark">Visualizar</button>

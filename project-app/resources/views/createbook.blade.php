@@ -22,12 +22,6 @@
                 <textarea class="form-Control" type="text" name="description" id="description" placeholder="Descrição do Livro:" value="{{$book->description ?? ''}}" row="5" required>{{$book->description ?? ''}}</textarea><br>                
                 <input class="form-Control" type="text" name="pages" id="pages" placeholder="Páginas do Livro:" value="{{$book->pages ?? ''}}" required><br>
                 <input class="form-Control" type="text" name="price" id="price" placeholder="Preço do Livro:" value="{{$book->price ?? ''}}" required><br>
-                <select class="form-Control" name="id_cliente" id="id_cliente">
-                    <option value="{{$book->relCliente->id ?? ''}}">{{$book->relCliente->name ?? 'Cliente'}}</option>
-                    @foreach($model_clientes as $cliente)
-                        <option value="{{$cliente->id}}">{{$cliente->name}}</option>
-                    @endforeach
-                </select><br> 
                 <div class="mb-3">
                     <label class="form-label" for="image">Capa do Livro:</label>
                     <input class="form-control" type="file" name="image" id="image" value="{{$book->image ?? ''}}">
