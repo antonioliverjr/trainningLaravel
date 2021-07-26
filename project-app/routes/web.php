@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/History', 'CartController@purchases');
     Route::post('/Cart/Add', 'CartController@store');
     Route::post('/Cart/Remove', 'CartController@destroy');
+    Route::post('/Canceled', 'CartController@canceled');
 });
 
 Route::get('/', 'LoginController@index')->name('login');

@@ -18,13 +18,17 @@
             @forelse($purchases_paid as $purchase)
                 <h5 class="col-6 text-left">Pedido: {{$purchase->id}}</h5>
                 <h5 class="col-6 text-right">Criado em: {{$purchase->created_at->format('d/m/Y')}}</h5>
+                <form action="{{url("Canceled")}}" method="post">
+                    @csrf
+                    <input type="hidden" name="id_purchase" value="{{$purchase->id}}">
                 <table class="table table-success table-striped text-center">
                     <thead>
                         <tr>
-                            <th scope="col-2">Capa</th>
-                            <th scope="col-2">Livro</th>
+                            <th scope="col-1"></th>
+                            <th scope="col-1">Capa</th>
+                            <th scope="col-1">Livro</th>
                             <th scope="col-3">Valor</th>
-                            <th scope="col-2">Desconto</th>
+                            <th scope="col-3">Desconto</th>
                             <th scope="col-3">Total</th>
                         </tr>
                     </thead>
@@ -39,8 +43,18 @@
                         @endphp
                         <tr>
                             <th scope="row align-middle">
-                                <img src="{{url('storage/Cap-Books/'.$purchase_book->RelBooks->image)}}" alt="capa" width="80px">
+                                @if($purchase_book->status == 'paid')
+                                <p>
+                                    <label for="id_book">Selecionar</label><br>
+                                    <input type="checkbox" name="id_book[]" id="item-{{$purchase_book->id}}" value="{{$purchase_book->id}}">
+                                </p>
+                                @else
+                                    <strong>Cancelado</strong>
+                                @endif
                             </th>
+                            <td>
+                                <img src="{{url('storage/Cap-Books/'.$purchase_book->RelBooks->image)}}" alt="capa" width="80px">
+                            </td>
                             <td class="align-middle">
                                 {{$purchase_book->relBooks->title}}
                             </td>
@@ -58,14 +72,15 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td></td>
-                            <td class="text-right"><strong>Total do pedido: </strong></td>
-                            <td></td>
-                            <td>R$ {{number_format($total_purchase, 2, '.', ',')}}</td>
-                            <td></td>
+                            <td class="text-center" colspan="2">
+                                <button type="submit" class="btn btn-danger">Cancelar Itens</button>
+                            </td>
+                            <td class="text-center" colspan="2"><strong>Total do pedido: </strong></td>
+                            <td class="text-center" colspan="2">R$ {{number_format($total_purchase, 2, '.', ',')}}</td>
                         </tr>
                     </tfoot>
                 </table>
+                </form>
             @empty
             <div class="col-12 container text-center">
             <hr>

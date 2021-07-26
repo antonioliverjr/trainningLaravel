@@ -188,4 +188,9 @@ class CartController extends Controller
             return redirect('Cart');
         }        
     }
+
+    public function canceled(Request $request)
+    {
+        dd($request->id_purchase);
+    }
 }
