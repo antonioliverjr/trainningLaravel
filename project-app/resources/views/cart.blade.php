@@ -108,7 +108,6 @@
                     <form name="purchaseEnd" action="{{url("/Cart/$purchase->id")}}" method="post">
                         @csrf
                         @method('PUT')
-                        {{--<input type="hidden" name="id_purchase" value="{{$purchase->id}}">--}}
                         <select class="custom-select" name="id_cliente">
                             <option selected>Selecionar Cliente</option>
                             @foreach($model_clientes as $cliente)

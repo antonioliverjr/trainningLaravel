@@ -41,6 +41,15 @@
                                 <input type="email" name="email" id="email" class="form-control" value="{{$user->email ?? ''}}">
                             </div>
                             <div class="form-group">
+                                <label for="id_roles" class="text-info">Nível de Permissão</label>
+                                <select class="custom-select" name="id_roles">
+                                    <option value="{{$user->relRoles->id ?? ''}}">{{$user->relRoles->function ?? 'Permissão'}}</option>
+                                    @foreach($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->function}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
                                 <label for="password" class="text-info">@if(isset($user)) Nova senha: @else Senha: @endif</label><br>
                                 <input type="password" name="password" id="password" class="form-control">
                             </div>

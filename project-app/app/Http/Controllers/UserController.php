@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\roles;
 
 class UserController extends Controller
 {
@@ -15,6 +16,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->objUser = new User();
+        $this->objRoles = new roles();
     }
 
     /**
@@ -53,7 +55,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('auth.createUser');
+        $roles=$this->objRoles->all();
+        return view('auth.createUser', compact('roles'));
     }
 
     /**
@@ -94,7 +97,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user=$this->objUser->find($id);
-        return view('auth.createUser')->with('user', $user);
+        $roles=$this->objRoles->all();
+        return view('auth.createUser')->with('user', $user)->with('roles', $roles);
     }
 
     /**
@@ -107,18 +111,23 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $newpassword = $request->password;
-        if($newpassword <> ""){
+        
+        if($newpassword <> "")
+        {
             $this->objUser->where(['id'=>$id])->update([
                 'name'=>$request->name,
                 'email'=>$request->email,
                 'password'=>Hash::make($newpassword)
             ]);
-        } else {
+        } else
+        {
             $this->objUser->where(['id'=>$id])->update([
                 'name'=>$request->name,
-                'email'=>$request->email
-               ]);
+                'email'=>$request->email,
+                'id_roles'=>$request->id_roles,
+            ]);
         }
+
         return redirect('/User'); 
         
     }

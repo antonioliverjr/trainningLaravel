@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ModelClientes extends Model
 {
-    protected $table='model_clientes';
+    protected $table='clientes';
     use HasFactory;
     use SoftDeletes;
 
