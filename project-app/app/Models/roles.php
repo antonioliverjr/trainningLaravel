@@ -18,7 +18,8 @@ class roles extends Model
         'function',
     ];
 
-    public function RelUser(){
+    public function RelUser()
+    {
         return $this->hasMany('App\Models\User', 'id', 'id_roles');
     }
 }

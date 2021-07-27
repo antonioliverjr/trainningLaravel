@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ModelClientes extends Model
 {
-    protected $table='clientes';
+    protected $table = 'clientes';
     use HasFactory;
     use SoftDeletes;
 
@@ -17,7 +17,8 @@ class ModelClientes extends Model
         'email',
     ];
 
-    public function relBooks(){
+    public function relBooks()
+    {
         return $this->hasMany('App\Models\Books\ModelBook', 'id_cliente');
     }
 
@@ -26,8 +27,8 @@ class ModelClientes extends Model
      */
     public function deletedAtNull($id)
     {
-        $cliente_del=ModelClientes::where(['deleted_at'=>null, 'id'=>$id])->forceDelete();
+        $cliente_del = ModelClientes::where(['deleted_at' => null, 'id' => $id])->forceDelete();
     }
-    
+
     protected $dates = ['deleted_at'];
 }

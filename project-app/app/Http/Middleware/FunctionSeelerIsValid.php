@@ -16,12 +16,11 @@ class FunctionSeelerIsValid
      */
     public function handle(Request $request, Closure $next)
     {
-        $role=auth()->user()->id_roles;
-        if($role <> 3)
-        {
+        $role = auth()->user()->id_roles;
+        if ($role <> 3) {
             return back()->withErrors('O usuário não tem permissão!');
-        }else {
-        return $next($request);
+        } else {
+            return $next($request);
         }
     }
 }

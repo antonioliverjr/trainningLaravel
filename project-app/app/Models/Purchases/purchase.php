@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class purchase extends Model
 {
-    protected $table='purchases';
+    protected $table = 'purchases';
     use HasFactory;
 
     protected $fillable = [

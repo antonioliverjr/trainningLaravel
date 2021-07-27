@@ -26,9 +26,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->user())
-        {
-            $user=$this->objUser->all();
+        if ($request->user()) {
+            $user = $this->objUser->all();
             return view('auth.users', compact('user'));
         } else {
             return redirect('/');
@@ -37,14 +36,13 @@ class UserController extends Controller
 
     public function inactive()
     {
-        $inactive=$this->objUser->onlyTrashed()->get();
+        $inactive = $this->objUser->onlyTrashed()->get();
         return view('auth.inactive', compact('inactive'));
-        
     }
 
     public function restoreUser($id)
     {
-        User::onlyTrashed()->where(['id'=>$id])->restore();
+        User::onlyTrashed()->where(['id' => $id])->restore();
         return redirect('/User');
     }
 
@@ -55,7 +53,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles=$this->objRoles->all();
+        $roles = $this->objRoles->all();
         return view('auth.createUser', compact('roles'));
     }
 
@@ -67,12 +65,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $cadUser=$this->objUser->create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>Hash::make($request->password)
+        $cadUser = $this->objUser->create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password)
         ]);
-        if($cadUser){
+        if ($cadUser) {
             return redirect('/User');
         }
     }
@@ -96,8 +94,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user=$this->objUser->find($id);
-        $roles=$this->objRoles->all();
+        $user = $this->objUser->find($id);
+        $roles = $this->objRoles->all();
         return view('auth.createUser')->with('user', $user)->with('roles', $roles);
     }
 
@@ -111,25 +109,22 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $newpassword = $request->password;
-        
-        if($newpassword <> "")
-        {
-            $this->objUser->where(['id'=>$id])->update([
-                'name'=>$request->name,
-                'email'=>$request->email,
-                'password'=>Hash::make($newpassword)
+
+        if ($newpassword <> "") {
+            $this->objUser->where(['id' => $id])->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($newpassword)
             ]);
-        } else
-        {
-            $this->objUser->where(['id'=>$id])->update([
-                'name'=>$request->name,
-                'email'=>$request->email,
-                'id_roles'=>$request->id_roles,
+        } else {
+            $this->objUser->where(['id' => $id])->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'id_roles' => $request->id_roles,
             ]);
         }
 
-        return redirect('/User'); 
-        
+        return redirect('/User');
     }
 
     /**
@@ -140,7 +135,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $del=$this->objUser->destroy($id);
-        return($del)?"Sim":"Não";
+        $del = $this->objUser->destroy($id);
+        return($del) ? "Sim" : "Não";
     }
 }

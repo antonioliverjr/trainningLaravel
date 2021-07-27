@@ -16,11 +16,10 @@ class FunctionManagerIsValid
      */
     public function handle(Request $request, Closure $next)
     {
-        $role=auth()->user()->id_roles;
-        if($role == 2 or $role == 1)
-        {
+        $role = auth()->user()->id_roles;
+        if ($role == 2 or $role == 1) {
             return $next($request);
-        }else {
+        } else {
             return back()->withErrors('O usuário não tem permissão!');
         }
     }

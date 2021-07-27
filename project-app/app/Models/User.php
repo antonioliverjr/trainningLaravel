@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    protected $table='users';
-    use HasFactory, Notifiable;
+    protected $table = 'users';
+    use HasFactory;
+    use Notifiable;
     use SoftDeletes;
 
     /**
@@ -45,7 +46,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function relRoles(){
+    public function relRoles()
+    {
         return $this->hasOne('App\Models\roles', 'id', 'id_roles');
     }
 

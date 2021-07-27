@@ -16,11 +16,10 @@ class FunctionAdminIsValid
      */
     public function handle(Request $request, Closure $next)
     {
-        $role=auth()->user()->id_roles;
-        if($role <> 1)
-        {
+        $role = auth()->user()->id_roles;
+        if ($role <> 1) {
             return back()->withErrors('O usuário não tem permissão!');
-        }else {
+        } else {
             return $next($request);
         }
     }

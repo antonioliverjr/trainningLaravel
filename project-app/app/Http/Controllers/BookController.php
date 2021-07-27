@@ -10,9 +10,6 @@ use App\Models\Purchases\purchase_book;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-
-
-
 class BookController extends Controller
 {
     private $objBook;
@@ -20,9 +17,9 @@ class BookController extends Controller
 
     public function __construct()
     {
-        $this->objBook=new ModelBook();
-        $this->objModelCliente=new ModelClientes();
-        $this->objPurchaseBook=new purchase_book();
+        $this->objBook = new ModelBook();
+        $this->objModelCliente = new ModelClientes();
+        $this->objPurchaseBook = new purchase_book();
     }
     /**
      * Display a listing of the resource.
@@ -31,20 +28,22 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
-        $book=$this->objBook->paginate(9);
+        $book = $this->objBook->paginate(9);
         return view('sales', compact('book'));
     }
 
     public function searchBook(Request $request)
     {
         $search = $request->search;
-        $book=$this->objBook->where('title', 'ILIKE', '%'.$search.'%')->orWhere('description', 'ILIKE', '%'.$search.'%')->paginate(9);
+        $book = $this->objBook->where('title', 'ILIKE', '%' . $search . '%')
+                            ->orWhere('description', 'ILIKE', '%' . $search . '%')
+                            ->paginate(9);
         return view('sales', compact('book'));
     }
 
     public function records()
     {
-        $book=$this->objBook->paginate(10);
+        $book = $this->objBook->paginate(10);
         return view('book', compact('book'));
     }
 
@@ -55,7 +54,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        $model_clientes=$this->objModelCliente->all();
+        $model_clientes = $this->objModelCliente->all();
         return view('createbook', compact('model_clientes'));
     }
 
@@ -67,28 +66,30 @@ class BookController extends Controller
      */
     public function store(BookRequest $request)
     {
-        if($request->hasFile('image') && $request->file('image')->isValid()){
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $name = Str::lower($request->title);
-            $name = Str::of($name)->remove(':', '/', '!', '(', ')','&', '@', '#', '*', '-', 'ª', 'º','{', '}', '[', ']', '.')->kebab();
+            $name = Str::of($name)
+            ->remove(':', '/', '!', '(', ')', '&', '@', '#', '*', '-', 'ª', 'º', '{', '}', '[', ']', '.')
+            ->kebab();
             $extension = $request->image->extension();
             $nameFile = "{$name}.{$extension}";
         } else {
             $nameFile = "";
         }
 
-        $cadBook=$this->objBook->create([
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'pages'=>$request->pages,
-            'price'=>$request->price,
-            'image'=>$nameFile
+        $cadBook = $this->objBook->create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'pages' => $request->pages,
+            'price' => $request->price,
+            'image' => $nameFile
         ]);
 
-        if($nameFile <> ""){
+        if ($nameFile <> "") {
             $request->image->storeAs('Cap-Books', $nameFile);
         }
 
-        if($cadBook){
+        if ($cadBook) {
             return redirect('Books');
         }
     }
@@ -101,7 +102,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $book=$this->objBook->find($id);
+        $book = $this->objBook->find($id);
         return view('showbook', compact('book'));
     }
 
@@ -113,9 +114,9 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        $book=$this->objBook->find($id);
-        $model_clientes=$this->objModelCliente->all();
-        return view('createbook')->with('book',$book)->with('model_clientes',$model_clientes);
+        $book = $this->objBook->find($id);
+        $model_clientes = $this->objModelCliente->all();
+        return view('createbook')->with('book', $book)->with('model_clientes', $model_clientes);
     }
 
     /**
@@ -127,26 +128,28 @@ class BookController extends Controller
      */
     public function update(BookRequest $request, $id)
     {
-        if($request->hasFile('image') && $request->file('image')->isValid()){
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $name = Str::lower($request->title);
-            $name = Str::of($name)->remove(':', '/', '!', '(', ')','&', '@', '#', '*', '-', 'ª', 'º','{', '}', '[', ']', '.')->kebab();
+            $name = Str::of($name)
+            ->remove(':', '/', '!', '(', ')', '&', '@', '#', '*', '-', 'ª', 'º', '{', '}', '[', ']', '.')
+            ->kebab();
             $extension = $request->image->extension();
             $nameFile = "{$name}.{$extension}";
         } else {
-            $book=$this->objBook->find($id);
-            $nameFile=$book->image;
+            $book = $this->objBook->find($id);
+            $nameFile = $book->image;
         }
 
-        $this->objBook->where(['id'=>$id])->update([
-            'title'=>$request->title,
-            'description'=>$request->description,
-            'pages'=>$request->pages,
-            'price'=>$request->price,
-            'image'=>$nameFile
+        $this->objBook->where(['id' => $id])->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'pages' => $request->pages,
+            'price' => $request->price,
+            'image' => $nameFile
         ]);
 
-        if($request->hasFile('image') && $request->file('image')->isValid()){
-            Storage::disk('public')->delete('Cap-Books/'.$nameFile);
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            Storage::disk('public')->delete('Cap-Books/' . $nameFile);
             $request->image->storeAs('Cap-Books', $nameFile);
         }
 
@@ -161,19 +164,18 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        $book_purchases=$this->objPurchaseBook->where(['id_book'=>$id])->exists();
+        $book_purchases = $this->objPurchaseBook->where(['id_book' => $id])->exists();
 
-        if($book_purchases)
-        {
-            $del=$this->objBook->destroy($id);
-            return($del)?"Sim":"Não";
-        } else{
-            $book=$this->objBook->find($id);
-            $nameFile=$book->image;
-            Storage::delete('Cap-Books/'.$nameFile);
+        if ($book_purchases) {
+            $del = $this->objBook->destroy($id);
+            return($del) ? "Sim" : "Não";
+        } else {
+            $book = $this->objBook->find($id);
+            $nameFile = $book->image;
+            Storage::delete('Cap-Books/' . $nameFile);
 
-            $force_del=$this->objBook->deletedAtNull($id);
-            return($force_del)?"Sim":"Não";
+            $force_del = $this->objBook->deletedAtNull($id);
+            return($force_del) ? "Sim" : "Não";
         }
     }
 }

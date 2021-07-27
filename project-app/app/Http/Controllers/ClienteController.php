@@ -16,9 +16,9 @@ class ClienteController extends Controller
 
     public function __construct()
     {
-        $this->objUser=new User();
-        $this->objModelCliente=new ModelClientes();
-        $this->objPurchase=new Purchase();
+        $this->objUser = new User();
+        $this->objModelCliente = new ModelClientes();
+        $this->objPurchase = new Purchase();
     }
 
     /**
@@ -28,7 +28,7 @@ class ClienteController extends Controller
      */
     public function index(Request $request)
     {
-        $cliente=$this->objModelCliente->all()->sortBy('name');
+        $cliente = $this->objModelCliente->all()->sortBy('name');
         return view('index', compact('cliente'));
     }
 
@@ -50,25 +50,24 @@ class ClienteController extends Controller
      */
     public function store(ClienteRequest $request)
     {
-        $exist_email=$this->objModelCliente->withTrashed()->where(['email'=>$request->email])->exists();
+        $exist_email = $this->objModelCliente->withTrashed()->where(['email' => $request->email])->exists();
 
-        if(!$exist_email)
-        {
-            $cadcliente=$this->objModelCliente->create([
-                'name'=>$request->name,
-                'email'=>$request->email
+        if (!$exist_email) {
+            $cadcliente = $this->objModelCliente->create([
+                'name' => $request->name,
+                'email' => $request->email
             ]);
-        } else if($exist_email){
-            $email_bloq=ModelClientes::onlyTrashed()->where(['email'=>$request->email])->exists();
-            if($email_bloq){
-                ModelClientes::onlyTrashed()->where(['email'=>$request->email])->restore();
+        } elseif ($exist_email) {
+            $email_bloq = ModelClientes::onlyTrashed()->where(['email' => $request->email])->exists();
+            if ($email_bloq) {
+                ModelClientes::onlyTrashed()->where(['email' => $request->email])->restore();
                 return redirect('Clientes');
-            } else{
+            } else {
                 return back()->withErrors('Não é possível realizar o cadastro de e-mail ativo!');
             }
         }
 
-        if($cadcliente){
+        if ($cadcliente) {
             return redirect('Clientes');
         }
     }
@@ -81,8 +80,8 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        $Model_Clientes=$this->objModelCliente->find($id);
-        $purchases=$this->objPurchase->where(['id_cliente'=>$id])->orderBy('id')->paginate(1);
+        $Model_Clientes = $this->objModelCliente->find($id);
+        $purchases = $this->objPurchase->where(['id_cliente' => $id])->orderBy('id')->paginate(1);
         return view('show', compact('Model_Clientes', 'purchases'));
     }
 
@@ -94,7 +93,7 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        $Model_Clientes=$this->objModelCliente->find($id);
+        $Model_Clientes = $this->objModelCliente->find($id);
         return view('createcliente', compact('Model_Clientes'));
     }
 
@@ -107,9 +106,9 @@ class ClienteController extends Controller
      */
     public function update(ClienteRequest $request, $id)
     {
-        $this->objModelCliente->where(['id'=>$id])->update([
-            'name'=>$request->name,
-            'email'=>$request->email
+        $this->objModelCliente->where(['id' => $id])->update([
+            'name' => $request->name,
+            'email' => $request->email
         ]);
         return redirect('Clientes');
     }
@@ -122,18 +121,16 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        $role=auth()->user()->id_roles;
-        if($role == 1 || $role == 2)
-        {
-            $cliente_purchases=$this->objPurchase->where(['id_cliente'=>$id])->exists();
+        $role = auth()->user()->id_roles;
+        if ($role == 1 || $role == 2) {
+            $cliente_purchases = $this->objPurchase->where(['id_cliente' => $id])->exists();
 
-            if($cliente_purchases)
-            {
-                $del=$this->objModelCliente->destroy($id);
-                return($del)?"Sim":"Não";
-            } else{
-                $force_del=$this->objModelCliente->deletedAtNull($id);
-                return ($force_del)?"Sim":"Não";
+            if ($cliente_purchases) {
+                $del = $this->objModelCliente->destroy($id);
+                return($del) ? "Sim" : "Não";
+            } else {
+                $force_del = $this->objModelCliente->deletedAtNull($id);
+                return ($force_del) ? "Sim" : "Não";
             }
         }
             return back()->withErrors('O usuário não tem permissão!');

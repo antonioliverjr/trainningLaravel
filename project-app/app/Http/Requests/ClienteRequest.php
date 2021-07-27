@@ -24,8 +24,8 @@ class ClienteRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required',
-            'email'=>'required|email:rfc,dns',
+            'name' => 'required',
+            'email' => 'required|email:rfc,dns',
         ];
     }
 

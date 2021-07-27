@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+
 //use Illuminate\Support\Facades\Hash;
 //use App\Models\User;
 
@@ -19,8 +20,7 @@ class LoginController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->user())
-        {
+        if ($request->user()) {
             return redirect('Books');
         } else {
             return view('auth.welcome');
@@ -30,12 +30,11 @@ class LoginController extends Controller
     public function authenticate(LoginRequest $request)
     {
         $credentials = $request->only(['email', 'password']);
-        if(Auth::attempt($credentials))
-        {
+        if (Auth::attempt($credentials)) {
             return redirect('Books');
-        } else{
+        } else {
             return back()->withErrors([
-                'login'=>'E-mail e senha não correspondem ao cadastrado!',
+                'login' => 'E-mail e senha não correspondem ao cadastrado!',
             ]);
         }
     }
@@ -46,7 +45,7 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        
+
         return redirect('/');
     }
 }
