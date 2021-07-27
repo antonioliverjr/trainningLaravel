@@ -15,7 +15,7 @@
         <h4>Título: {{$book->title}}</h4> <br>
         <h4>Descrição: {{$book->description}}</h4><br>
         <h4>Páginas: {{$book->pages}}</h4> <br>
-        <h4>Preço: {{$book->price}}</h4> <br>
+        <h4>Preço: {{'R$ '.number_format($book->price, 2, ',', '.')}}</h4> <br>
         <h4>Data de Criação: {{$book->created_at}}</h4> <br>
     </div>
     <hr>

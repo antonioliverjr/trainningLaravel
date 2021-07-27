@@ -22,8 +22,6 @@ class CreateBookTable extends Migration
             $table->string('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->integer('id_cliente')->unsigned();
-            $table->foreign('id_cliente')->references('id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

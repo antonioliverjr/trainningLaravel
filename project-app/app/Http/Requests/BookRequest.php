@@ -28,7 +28,6 @@ class BookRequest extends FormRequest
             'description' => 'required',
             'pages'=>'required',
             'price'=>'required',
-            'id_cliente' => 'required'
         ];
     }
 
@@ -39,7 +38,6 @@ class BookRequest extends FormRequest
             'description.required' => 'Informe uma descrição do Livro!',
             'pages.required' => 'Informe a quantidade de paginas do Livro',
             'price.required' => 'Informe o preço do Livro',
-            'id_cliente.required' => 'Selecione um cliente'
         ];
     }
 }

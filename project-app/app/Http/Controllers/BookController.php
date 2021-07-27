@@ -81,7 +81,6 @@ class BookController extends Controller
             'description'=>$request->description,
             'pages'=>$request->pages,
             'price'=>$request->price,
-            'id_cliente'=>$request->id_cliente,
             'image'=>$nameFile
         ]);
 
@@ -143,7 +142,6 @@ class BookController extends Controller
             'description'=>$request->description,
             'pages'=>$request->pages,
             'price'=>$request->price,
-            'id_cliente'=>$request->id_cliente,
             'image'=>$nameFile
         ]);
 

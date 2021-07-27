@@ -21,7 +21,7 @@ class CreatePurchaseBooksTable extends Migration
             $table->foreign('id_book')->references('id')->on('book');
             $table->enum('status', ['reserved', 'paid', 'canceled'])->default('reserved')->nullable(false);
             $table->double('price_book', 10, 2);
-            $table->double('discount', 10, 2)->nullable(false);
+            $table->double('discount', 10, 2)->default('0')->nullable(false);
             $table->timestamps();
         });
     }

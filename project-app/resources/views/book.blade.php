@@ -30,7 +30,7 @@
                     <th scope="row">{{$books->id}}</th>
                     <td>{{$books->title}}</td>
                     <td>{{$books->pages}}</td>
-                    <td>{{$books->price}}</td>
+                    <td>{{'R$ '.number_format($books->price, 2, ',', '.')}}</td>
                     <td class="btn-group">
                         <a href="{{url("Books/$books->id")}}" class="mr-1">
                             <button class="btn btn-dark">Visualizar</button>
