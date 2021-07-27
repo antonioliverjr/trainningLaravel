@@ -19,16 +19,22 @@ use Illuminate\Support\Facades\Route;
 });
 */
 Route::resource('/', 'LoginController');
-Route::resource('/User', 'UserController');
 Route::post('/Auth','LoginController@authenticate');
 
-Route::middleware(['auth'])->group(function(){
-    Route::resource('/Books', 'BookController');
-    Route::resource('/Clientes', 'ClienteController');
-    Route::get('/Logout', 'LoginController@logout');
+Route::middleware('admin')->group(function(){
+    Route::resource('/User', 'UserController');
     Route::get('/Inactive', 'UserController@inactive');
     Route::get('/Inactive/Restore/{id}', 'UserController@restoreUser');
+});
+
+Route::middleware('manager')->group(function(){
     Route::get('/Records', 'BookController@records');
+});
+
+Route::middleware(['auth'])->group(function(){
+    Route::resource('/Clientes', 'ClienteController');
+    Route::resource('/Books', 'BookController');
+    Route::get('/Logout', 'LoginController@logout');
     Route::post('/Search', 'BookController@searchBook');
 });
 

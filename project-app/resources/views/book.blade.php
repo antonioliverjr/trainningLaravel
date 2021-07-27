@@ -2,7 +2,13 @@
 @section('content')
     <h1 class="text-center">Livros</h1>
     <hr>
-
+    @if(isset($errors) && count($errors)>0)
+        <div class="text-center mt-4 mb-4 p-2 alert-danger">
+            @foreach($errors->all() as $erro)
+                {{$erro}}<br>
+            @endforeach
+        </div>
+    @endif
     <div class="text-center mt-3 mb-4">
         <a href="{{url("Books/create")}}">
             <button class="btn btn-success">Cadastrar</button>

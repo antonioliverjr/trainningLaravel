@@ -3,7 +3,13 @@
 @section('content')
     <h1 class="text-center">Visualizar Cliente</h1>
     <hr>
-
+    @if(isset($errors) && count($errors)>0)
+        <div class="text-center mt-4 mb-4 p-2 alert-danger">
+            @foreach($errors->all() as $erro)
+                {{$erro}}<br>
+            @endforeach
+        </div>
+    @endif
     <div class="col-8 m-auto">
         @php
             $user=$Model_Clientes->find($Model_Clientes->id)->relUser;

@@ -3,6 +3,13 @@
 @section('content')
     <h1 class="text-center">Visualizar Livro</h1>
     <hr>
+    @if(isset($errors) && count($errors)>0)
+        <div class="text-center mt-4 mb-4 p-2 alert-danger">
+            @foreach($errors->all() as $erro)
+                {{$erro}}<br>
+            @endforeach
+        </div>
+    @endif
     <div class="text-center container-sm">
         <img src="{{url('storage/Cap-Books/'.$book->image)}}" alt="Capa-Livro" width="200px">
     </div>

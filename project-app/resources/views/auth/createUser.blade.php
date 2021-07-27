@@ -13,6 +13,13 @@
     <section>
     <div id="cadastro">
         <h3 class="text-center text-blue pt-5">@if(isset($user)) Editar usuário @else Cadastrar Usuário @endif</h3>
+        @if(isset($errors) && count($errors)>0)
+            <div class="text-center mt-4 mb-4 p-2 alert-danger">
+                @foreach($errors->all() as $erro)
+                    {{$erro}}<br>
+                @endforeach
+            </div>
+        @endif
         <div class="container">
             <div id="cadastro-row" class="row justify-content-center align-items-center">
                 <div id="cadastro-column" class="col-md-6">

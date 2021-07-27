@@ -122,17 +122,20 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        $cliente_purchases=$this->objPurchase->where(['id_cliente'=>$id])->exists();
-
-        if($cliente_purchases)
+        $role=auth()->user()->id_roles;
+        if($role == 1 || $role == 2)
         {
-            $del=$this->objModelCliente->destroy($id);
-            return($del)?"Sim":"Não";
-        } else{
-            $force_del=$this->objModelCliente->deletedAtNull($id);
-            return ($force_del)?"Sim":"Não";
-        }
+            $cliente_purchases=$this->objPurchase->where(['id_cliente'=>$id])->exists();
 
-        
+            if($cliente_purchases)
+            {
+                $del=$this->objModelCliente->destroy($id);
+                return($del)?"Sim":"Não";
+            } else{
+                $force_del=$this->objModelCliente->deletedAtNull($id);
+                return ($force_del)?"Sim":"Não";
+            }
+        }
+            return back()->withErrors('O usuário não tem permissão!');
     }
 }
