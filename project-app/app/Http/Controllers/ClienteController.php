@@ -55,7 +55,14 @@ class ClienteController extends Controller
         if (!$exist_email) {
             $cadcliente = $this->objModelCliente->create([
                 'name' => $request->name,
-                'email' => $request->email
+                'email' => $request->email,
+                'cep'=>$request->cep,
+                'address'=>$request->address,
+                'number'=>$request->number,
+                'note'=>$request->note,
+                'district'=>$request->district,
+                'city'=>$request->city,
+                'uf'=>$request->uf,
             ]);
         } elseif ($exist_email) {
             $email_bloq = ModelClientes::onlyTrashed()->where(['email' => $request->email])->exists();
@@ -108,7 +115,14 @@ class ClienteController extends Controller
     {
         $this->objModelCliente->where(['id' => $id])->update([
             'name' => $request->name,
-            'email' => $request->email
+            'email' => $request->email,
+            'cep'=>$request->cep,
+            'address'=>$request->address,
+            'number'=>$request->number,
+            'note'=>$request->note,
+            'district'=>$request->district,
+            'city'=>$request->city,
+            'uf'=>$request->uf,
         ]);
         return redirect('Clientes');
     }

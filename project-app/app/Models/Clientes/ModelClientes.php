@@ -15,6 +15,12 @@ class ModelClientes extends Model
     protected $fillable = [
         'name',
         'email',
+        'cep',
+        'address',
+        'number',
+        'district',
+        'city',
+        'uf',
     ];
 
     public function relBooks()

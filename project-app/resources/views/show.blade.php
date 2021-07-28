@@ -15,9 +15,19 @@
             $user=$Model_Clientes->find($Model_Clientes->id)->relUser;
         @endphp
 
-        <h4>Id: {{$Model_Clientes->id}}</h4> <br>
         <h4>Nome: {{$Model_Clientes->name}}</h4> <br>
         <h4>E-mail: {{$Model_Clientes->email}}</h4> <br>
+        <div class="d-flex">
+            <h4 class="mr-5">Cep: {{$Model_Clientes->cep}}</h4>
+            <h4 class="mr-5">Endereço: {{$Model_Clientes->address}}</h4>
+            <h4 class="mr-5">Nº: {{$Model_Clientes->number}}</h4>
+        </div><br>
+        <h4 class="mr-3">Complemento: {{$Model_Clientes->note}}</h4><br>
+        <div class="d-flex">
+            <h4 class="mr-5">Bairro: {{$Model_Clientes->district}}</h4>
+            <h4 class="mr-5">Cidade: {{$Model_Clientes->city}}</h4>
+            <h4 class="mr-5">UF: {{$Model_Clientes->uf}}</h4>
+        </div><br>
         <h4>Data de Criação: {{$Model_Clientes->created_at}}</h4> <br>
     </div>
     <hr>
